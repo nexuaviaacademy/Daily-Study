@@ -15,158 +15,170 @@
         <div class="loader"></div>
     </div>
 
-    <div class="app-wrapper">
-        <div class="app-container">
-            
-            <div class="app-header">
-                <div id="header-home" class="header-content active">
-                    <div class="top-row">
-                        <div class="greeting">Halo, <span>Student!</span> 👋</div>
-                        <button class="theme-btn" id="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
-                    </div>
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Mau belajar apa?">
-                    </div>
-                </div>
+    <div class="app-layout">
+        
+        <nav class="sidebar">
+            <div class="logo-area">daily<span>study</span></div>
+            <div class="side-menu">
+                <div class="side-link active" onclick="switchTab('home')"><i class="fas fa-home"></i> Home</div>
+                <div class="side-link" onclick="switchTab('live')"><i class="fas fa-video"></i> Live Class</div>
+                <div class="side-link" onclick="showComingSoon()"><i class="fas fa-tasks"></i> Tryout</div>
+                <div class="side-link" onclick="showComingSoon()"><i class="fas fa-chart-line"></i> Laporan</div>
+            </div>
+        </nav>
 
-                <div id="header-live" class="header-content">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Cari sesi live...">
-                    </div>
-                    <div class="live-tabs" id="live-tab-container">
-                        <div class="tab-item active" onclick="switchLiveTab('upcoming', this)">Jadwal</div>
-                        <div class="tab-item" onclick="switchLiveTab('history', this)">Riwayat</div>
-                    </div>
+        <div class="main-content">
+            
+            <div class="top-header">
+                <div class="header-left">
+                    <div class="greeting">Halo, <span>Student!</span> 👋</div>
+                    <p class="subtitle">Siap belajar apa hari ini?</p>
+                </div>
+                <div class="header-right">
+                    <button class="theme-btn" id="theme-toggle" onclick="toggleTheme()">
+                        <i class="fas fa-moon"></i>
+                    </button>
                 </div>
             </div>
 
-            <div class="app-content">
+            <div id="page-home" class="page-section active">
                 
-                <div id="page-home" class="page-view active">
-                    
-                    <div class="filter-pill" onclick="openClassModal()">
-                        <span id="filter-btn-text">UTBK - Tes Literasi</span> <i class="fas fa-chevron-down"></i>
+                <div class="action-bar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Cari materi...">
                     </div>
-
-                    <div id="main-grid-menu" class="grid-menu"></div>
-
-                    <div class="stats-grid">
-                        <div class="stat-card" onclick="showComingSoon()">
-                            <div class="icon blue"><i class="fas fa-chart-line"></i></div>
-                            <div><div class="label">Laporan</div><div class="val">Cek Progres</div></div>
-                        </div>
-                        <div class="stat-card" onclick="showComingSoon()">
-                            <div class="icon orange"><i class="fas fa-dumbbell"></i></div>
-                            <div><div class="label">Latihan</div><div class="val">Drill Soal</div></div>
-                        </div>
+                    <div class="filter-btn" onclick="openClassModal()">
+                        <span id="filter-btn-text">UTBK - Literasi</span> <i class="fas fa-chevron-down"></i>
                     </div>
-
-                    <div class="section-title">Pilihan Belajar</div>
-                    <div class="h-scroll">
-                        <div class="scroll-item" onclick="showComingSoon()"><div class="s-icon"><i class="fas fa-tasks"></i></div><span>Tryout</span></div>
-                        <div class="scroll-item" onclick="switchTab('live')"><div class="s-icon"><i class="fas fa-video"></i></div><span>Live</span></div>
-                        <div class="scroll-item"><div class="s-icon"><i class="fas fa-layer-group"></i></div><span>Materi</span></div>
-                        <div class="scroll-item" onclick="showComingSoon()"><div class="s-icon"><i class="fas fa-calendar-check"></i></div><span>Habit</span></div>
-                    </div>
-
-                    <div class="section-title" style="margin-top:20px;">Daily Read</div>
-                    <div class="h-scroll">
-                        <div class="article-card" onclick="showComingSoon()">
-                            <div class="art-img" style="background:#cbd5e1;"></div>
-                            <div class="art-body">
-                                <div class="art-t">Jurusan Sepi Peminat</div>
-                                <div class="art-d">Peluang lolos besar...</div>
-                            </div>
-                        </div>
-                        <div class="article-card" onclick="showComingSoon()">
-                            <div class="art-img" style="background:#94a3b8;"></div>
-                            <div class="art-body">
-                                <div class="art-t">Tips UTBK 2026</div>
-                                <div class="art-d">Strategi belajar...</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <a href="https://chat.whatsapp.com/K3RgtvP1yeOHBebfFmKNn0" class="wa-btn" target="_blank"><i class="fab fa-whatsapp"></i> Join WA</a>
-                    <div style="height: 20px;"></div>
                 </div>
 
-                <div id="page-live" class="page-view">
-                    <div class="live-chips">
-                        <div id="chip-kelas" class="chip active" onclick="switchSubMenu('kelas')">Kelas Online</div>
-                        <div id="chip-tutor" class="chip" onclick="switchSubMenu('tutor')">Sesi Tutor</div>
-                        <div id="chip-tryout" class="chip" onclick="switchSubMenu('tryout')">Tryout</div>
-                    </div>
+                <div id="main-grid-menu" class="grid-menu"></div>
 
-                    <div id="view-kelas">
-                        <div id="tab-upcoming">
-                            <div class="empty-state">
-                                <i class="far fa-calendar-check"></i>
-                                <h3>Jadwal Kosong</h3>
-                                <p>Belum ada kelas live saat ini.</p>
-                            </div>
-                        </div>
-                        <div id="tab-history" style="display: none;">
-                            <div id="history-list" class="list-vertical"></div>
-                        </div>
+                <div class="stats-container">
+                    <div class="stat-card" onclick="showComingSoon()">
+                        <div class="icon-circle blue"><i class="fas fa-chart-line"></i></div>
+                        <div><div class="lbl">Laporan</div><div class="val">Cek Progres</div></div>
                     </div>
-
-                    <div id="view-tutor" style="display: none;">
-                        <h3 class="section-title" style="padding:0; margin-bottom:15px;">Pilih Mata Pelajaran</h3>
-                        <div id="tutor-list" class="list-vertical"></div>
+                    <div class="stat-card" onclick="showComingSoon()">
+                        <div class="icon-circle orange"><i class="fas fa-dumbbell"></i></div>
+                        <div><div class="lbl">Latihan</div><div class="val">Drill Soal</div></div>
                     </div>
-
-                    <div id="view-tryout" style="display: none;">
-                        <div class="card to-card">
-                            <div><div class="to-t">TO UTBK - SNBT 1</div><div class="to-d">15-17 Jan 2026</div></div>
-                            <button class="btn-sm" onclick="showComingSoon()">Daftar</button>
-                        </div>
-                        <div class="card to-card">
-                            <div><div class="to-t">TO UTBK - SNBT 2</div><div class="to-d">22-24 Jan 2026</div></div>
-                            <button class="btn-sm btn-disabled">Belum</button>
-                        </div>
-                    </div>
-                    <div style="height: 20px;"></div>
                 </div>
 
-                <div id="page-form" class="page-view">
-                    <button class="back-btn" onclick="closeForm()"><i class="fas fa-arrow-left"></i> Kembali</button>
-                    <div class="form-container">
+                <h3 class="sect-title">Pilihan Belajar</h3>
+                <div class="h-scroll">
+                    <div class="scroll-card" onclick="showComingSoon()"><i class="fas fa-tasks blue-t"></i><span>Tryout</span></div>
+                    <div class="scroll-card" onclick="switchTab('live')"><i class="fas fa-video orange-t"></i><span>Live</span></div>
+                    <div class="scroll-card"><i class="fas fa-layer-group purple-t"></i><span>Materi</span></div>
+                    <div class="scroll-card" onclick="showComingSoon()"><i class="fas fa-calendar-check green-t"></i><span>Habit</span></div>
+                </div>
+
+                <h3 class="sect-title" style="margin-top:20px;">Daily Read</h3>
+                <div class="article-grid">
+                    <div class="art-card" onclick="showComingSoon()">
+                        <div class="art-img" style="background:#cbd5e1;"></div>
+                        <div class="art-txt">Jurusan Sepi Peminat</div>
+                    </div>
+                    <div class="art-card" onclick="showComingSoon()">
+                        <div class="art-img" style="background:#94a3b8;"></div>
+                        <div class="art-txt">Tips Lolos UTBK 2026</div>
+                    </div>
+                </div>
+
+                <a href="https://chat.whatsapp.com/K3RgtvP1yeOHBebfFmKNn0" class="wa-float" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Join Grup WA
+                </a>
+                
+                <div style="height: 100px;"></div>
+            </div>
+
+            <div id="page-live" class="page-section">
+                
+                <div class="live-nav">
+                    <div id="chip-kelas" class="chip active" onclick="switchSubMenu('kelas')">Kelas Online</div>
+                    <div id="chip-tutor" class="chip" onclick="switchSubMenu('tutor')">Sesi Tutor</div>
+                    <div id="chip-tryout" class="chip" onclick="switchSubMenu('tryout')">Tryout</div>
+                </div>
+
+                <div id="view-kelas">
+                    <div class="tabs-segmented">
+                        <div class="seg-item active" onclick="switchLiveTab('upcoming', this)">Jadwal</div>
+                        <div class="seg-item" onclick="switchLiveTab('history', this)">Riwayat</div>
+                    </div>
+
+                    <div id="tab-upcoming" style="margin-top:20px;">
+                        <div class="empty-state">
+                            <i class="far fa-calendar-check"></i>
+                            <h3>Jadwal Kosong</h3>
+                            <p>Belum ada kelas live saat ini.</p>
+                        </div>
+                    </div>
+
+                    <div id="tab-history" style="display: none; margin-top:20px;">
+                        <div class="date-filter">
+                            <i class="fas fa-filter"></i>
+                            <input type="date" id="liveDateInput" onchange="renderHistory()">
+                        </div>
+                        <div id="history-container" class="card-stack"></div>
+                    </div>
+                </div>
+
+                <div id="view-tutor" style="display: none;">
+                    <h3 class="sect-title">Pilih Mata Pelajaran</h3>
+                    <div id="tutor-container" class="card-grid-responsive"></div>
+                </div>
+
+                <div id="view-tryout" style="display: none;">
+                    <div class="tryout-card">
+                        <div>
+                            <h4>TO UTBK - SNBT 1</h4>
+                            <p>15 - 17 Jan 2026</p>
+                        </div>
+                        <button class="btn-primary" onclick="showComingSoon()">Daftar</button>
+                    </div>
+                </div>
+
+                <div style="height: 100px;"></div>
+            </div>
+
+            <div id="page-form" class="page-section">
+                <button class="back-btn" onclick="closeForm()"><i class="fas fa-arrow-left"></i> Kembali</button>
+                <div class="form-wrapper">
+                    <div class="form-head">
+                        <span class="badge">Setiap Hari</span>
                         <h2 id="form-subject">Subject</h2>
-                        <div class="info-row"><i class="fas fa-user"></i> <span id="form-teacher">Name</span></div>
-                        <div class="info-row"><i class="far fa-clock"></i> <span id="form-time">Time</span></div>
-                        <hr style="border:0; border-top:1px solid var(--border); margin:15px 0;">
-                        
+                        <p><i class="fas fa-chalkboard-teacher"></i> <span id="form-teacher">Name</span></p>
+                        <p><i class="far fa-clock"></i> <span id="form-time">Time</span></p>
+                    </div>
+                    <div class="form-content">
                         <label>Pertanyaan:</label>
                         <textarea id="form-msg" placeholder="Tulis di sini..."></textarea>
                         
-                        <div class="file-btn" onclick="document.getElementById('file-up').click()">
-                            <i class="fas fa-paperclip"></i> <span id="file-name">Upload Foto / PDF</span>
+                        <div class="file-area" onclick="document.getElementById('file-up').click()">
+                            <i class="fas fa-paperclip"></i> <span id="file-name">Upload File</span>
                             <input type="file" id="file-up" hidden onchange="updateFile()">
                         </div>
 
-                        <button class="btn-full" onclick="sendWA()">Kirim WhatsApp</button>
+                        <button class="btn-block" onclick="sendWA()">Kirim WhatsApp</button>
                     </div>
                 </div>
-
             </div>
 
-            <div class="app-nav">
-                <div class="nav-item active" onclick="switchTab('home')">
-                    <i class="fas fa-home"></i><span>Home</span>
-                </div>
-                <div class="nav-item" onclick="switchTab('live')">
-                    <i class="fas fa-video"></i><span>Live</span>
-                </div>
-            </div>
-
+        </div> 
         </div>
-    </div>
+
+    <nav class="bottom-nav">
+        <div class="nav-btn active" onclick="switchTab('home')">
+            <i class="fas fa-home"></i><span>Home</span>
+        </div>
+        <div class="nav-btn" onclick="switchTab('live')">
+            <i class="fas fa-video"></i><span>Live</span>
+        </div>
+    </nav>
 
     <div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
+        <div class="modal-box" onclick="event.stopPropagation()">
             <div id="modal-body"></div>
         </div>
     </div>
