@@ -8,15 +8,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* --- 1. DESIGN SYSTEM (PREMIUM INDIGO) --- */
+        /* --- 1. DESIGN SYSTEM --- */
         :root {
-            --primary: #6366f1; /* Indigo Premium */
+            --primary: #6366f1;
             --primary-soft: #e0e7ff;
-            --accent: #f43f5e;
             --text-main: #1e293b;
             --text-sec: #64748b;
-            --bg-body: #cbd5e1; /* Background luar desktop */
-            --bg-app: #f8fafc;  /* Background dalam aplikasi */
+            --bg-body: #cbd5e1;
+            --bg-app: #f8fafc;
             --bg-card: #ffffff;
             --border: #e2e8f0;
             --max-w: 480px;
@@ -36,50 +35,45 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; outline: none; }
 
-        /* --- 2. LAYOUT ENGINE (ANTI-BERANTAKAN) --- */
-        body { 
-            background: var(--bg-body); 
-            height: 100vh; width: 100%; 
-            display: flex; justify-content: center; 
-            overflow: hidden; 
-        }
+        body { background: var(--bg-body); height: 100vh; width: 100%; display: flex; justify-content: center; overflow: hidden; }
+        .app-container { width: 100%; max-width: var(--max-w); background: var(--bg-app); height: 100%; display: flex; flex-direction: column; position: relative; box-shadow: 0 0 50px rgba(0,0,0,0.2); }
 
-        .app-container {
-            width: 100%; max-width: var(--max-w);
-            background: var(--bg-app); height: 100%;
-            display: flex; flex-direction: column;
-            position: relative; box-shadow: 0 0 50px rgba(0,0,0,0.2);
-        }
-
-        /* Header & Nav (Fixed) */
+        /* HEADER & NAV */
         .app-header { flex-shrink: 0; z-index: 50; background: var(--bg-card); border-bottom: 1px solid var(--border); transition: 0.3s; }
-        .app-nav { flex-shrink: 0; height: 75px; background: var(--bg-card); border-top: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; z-index: 50; padding-bottom: 5px; }
+        
+        /* 🔥 FIX NAV BAR: Posisi dinaikkan agar tidak mepet bawah 🔥 */
+        .app-nav { 
+            flex-shrink: 0; 
+            height: 95px; /* Tinggi ditambah */
+            background: var(--bg-card); 
+            border-top: 1px solid var(--border); 
+            display: flex; 
+            justify-content: space-around; 
+            align-items: center; 
+            z-index: 50; 
+            padding-bottom: 30px; /* Padding bawah ditambah agar tombol naik */
+        }
 
-        /* Content (Scrollable) */
+        /* CONTENT */
         .app-content { flex-grow: 1; overflow-y: auto; overflow-x: hidden; position: relative; scroll-behavior: smooth; }
         .page-view { display: none; animation: fade 0.25s; padding-bottom: 20px; }
         .page-view.active { display: block; }
         @keyframes fade { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- 3. COMPONENTS --- */
-        /* Header */
+        /* COMPONENTS */
         .header-inner { display: none; padding: 15px 24px; }
         .header-inner.active { display: block; }
         .top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .greeting h1 { font-size: 1.3rem; font-weight: 800; color: var(--text-main); margin: 0; }
-        .greeting span { color: var(--primary); }
         .theme-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--bg-app); border: 1px solid var(--border); color: var(--text-main); cursor: pointer; display: flex; justify-content: center; align-items: center; }
-
         .search-box { background: var(--bg-app); padding: 12px 16px; border-radius: 12px; display: flex; align-items: center; gap: 10px; border: 1px solid var(--border); }
         .search-box input { border: none; background: transparent; width: 100%; color: var(--text-main); font-size: 0.9rem; }
 
-        /* Home */
         .filter-btn { margin: 20px 24px 10px; background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 100px; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.4); }
 
         .menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 10px 24px; margin-bottom: 20px; }
         .menu-item { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; text-align: center; }
         .m-icon { width: 56px; height: 56px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; display: flex; justify-content: center; align-items: center; font-size: 1.4rem; box-shadow: var(--shadow); color: var(--text-main); transition: 0.1s; }
-        .m-icon:active { transform: scale(0.95); }
         .m-text { font-size: 0.7rem; font-weight: 600; color: var(--text-sec); }
 
         .stats-box { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 24px 25px; }
@@ -94,7 +88,7 @@
         .scroll-card { min-width: 260px; background: var(--bg-card); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; cursor: pointer; margin-bottom: 5px; }
         .sc-img { height: 110px; background: #cbd5e1; } .sc-txt { padding: 12px; font-weight: 700; color: var(--text-main); font-size: 0.9rem; }
 
-        /* Detail Page (PK) */
+        /* DETAIL PAGE */
         .detail-hero { padding: 30px 24px; background: linear-gradient(135deg, #6366f1, #4f46e5); color: white; border-radius: 0 0 30px 30px; margin-bottom: 20px; position: relative; }
         .back-absolute { position: absolute; top: 20px; left: 20px; color: white; background: rgba(255,255,255,0.2); width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; border: none; font-size: 1.1rem; }
         .hero-title { margin-top: 40px; font-size: 1.6rem; font-weight: 800; line-height: 1.2; margin-bottom: 5px; }
@@ -103,55 +97,48 @@
 
         .chapter-item { background: var(--bg-card); margin: 0 24px 12px; padding: 16px; border-radius: 16px; border: 1px solid var(--border); display: flex; align-items: center; gap: 15px; cursor: pointer; }
         .ch-icon { width: 45px; height: 45px; background: var(--primary-soft); color: var(--primary); border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 1.2rem; flex-shrink: 0; }
-        .ch-info h4 { margin: 0 0 4px; font-size: 0.9rem; color: var(--text-main); }
-        .badge { background: #0f172a; color: white; font-size: 0.65rem; padding: 2px 8px; border-radius: 4px; font-weight: 700; }
+        .ch-info h4 { margin: 0 0 4px; font-size: 0.95rem; color: var(--text-main); font-weight: 700; }
+        .ch-info span { font-size: 0.7rem; color: var(--text-sec); font-weight: 600; }
 
-        /* Live & Tutor Cards */
+        /* LIVE & FORM */
         .card-list { display: flex; flex-direction: column; gap: 15px; padding: 0 24px; }
         .live-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 20px; }
         .lc-head { display: flex; justify-content: space-between; margin-bottom: 15px; align-items: center; }
         .lc-title { font-weight: 800; font-size: 1.1rem; color: var(--text-main); }
         .lc-tag { background: var(--primary-soft); color: var(--primary); padding: 4px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 700; }
         .lc-row { display: flex; align-items: center; gap: 10px; color: var(--text-sec); font-size: 0.85rem; margin-bottom: 8px; }
-        .lc-row i { color: var(--primary); width: 20px; text-align: center; }
-        
         .btn-main { width: 100%; background: var(--primary); color: white; padding: 12px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; margin-top: 10px; }
-        .btn-outline { width: 100%; background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 10px; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 10px; }
-
-        /* Live Chips & Tabs */
+        
         .live-tabs { display: flex; background: var(--bg-app); padding: 5px; border-radius: 12px; margin-top: 10px; border: 1px solid var(--border); }
-        .tab { flex: 1; text-align: center; padding: 8px; font-size: 0.85rem; font-weight: 700; color: var(--text-sec); border-radius: 8px; cursor: pointer; }
+        .tab { flex: 1; text-align: center; padding: 8px; font-size: 0.85rem; font-weight: 700; color: var(--text-sec); border-radius: 8px; cursor: pointer; transition: 0.2s; }
         .tab.active { background: var(--bg-card); color: var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .chip-scroll { display: flex; gap: 10px; overflow-x: auto; padding: 20px 24px; scrollbar-width: none; }
         .chip { white-space: nowrap; padding: 8px 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 100px; font-weight: 600; color: var(--text-sec); cursor: pointer; }
         .chip.active { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); }
 
-        /* Nav Bottom */
         .nav-btn { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-sec); cursor: pointer; flex: 1; }
         .nav-btn.active { color: var(--primary); }
-        .nav-btn i { font-size: 1.4rem; }
+        .nav-btn.active i { transform: translateY(-2px); }
+        .nav-btn i { font-size: 1.4rem; transition: 0.2s; }
         .nav-btn span { font-size: 0.7rem; font-weight: 700; }
 
-        /* Utils */
-        .wa-float { position: fixed; bottom: 100px; right: 20px; background: #25D366; color: white; padding: 12px 20px; border-radius: 100px; font-weight: 700; text-decoration: none; box-shadow: 0 8px 20px rgba(37,211,102,0.3); z-index: 90; display: flex; align-items: center; gap: 8px; }
-        .empty-state { text-align: center; padding: 40px 20px; color: var(--text-sec); }
-        .empty-state i { font-size: 3rem; margin-bottom: 10px; opacity: 0.5; }
+        .wa-float { position: fixed; bottom: 100px; right: 20px; background: #25D366; color: white; padding: 12px 24px; border-radius: 100px; font-weight: 700; text-decoration: none; box-shadow: 0 8px 25px rgba(37,211,102,0.4); display: flex; align-items: center; gap: 8px; z-index: 90; transition: transform 0.2s; }
+        .empty-state { text-align: center; padding: 50px 20px; color: var(--text-sec); }
+        .empty-state i { font-size: 3rem; margin-bottom: 15px; opacity: 0.5; }
 
-        /* Modal */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; display: none; align-items: flex-end; justify-content: center; backdrop-filter: blur(4px); }
         .modal-overlay.active { display: flex; }
-        .modal-sheet { background: var(--bg-card); width: 100%; max-width: 480px; border-radius: 24px 24px 0 0; padding: 30px 24px; animation: slideUp 0.3s; }
+        .modal-sheet { background: var(--bg-card); width: 100%; max-width: 480px; border-radius: 30px 30px 0 0; padding: 30px 24px; animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-        .modal-opt { padding: 15px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; text-align: center; font-weight: 700; color: var(--text-sec); cursor: pointer; }
-        .modal-opt.active { background: var(--primary-soft); color: var(--primary); border-color: var(--primary); }
+        
+        .pkg-option { width: 100%; padding: 16px; margin-bottom: 12px; background: var(--bg-card); border: 2px solid var(--border); border-radius: 16px; font-weight: 700; color: var(--text-sec); text-align: center; cursor: pointer; transition: 0.2s; display: block; }
+        .pkg-option.active { border-color: var(--primary); background: var(--primary-soft); color: var(--primary); box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2); }
 
-        /* Splash */
         #splash-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--primary); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 0.5s; }
         .splash-logo { color: white; font-size: 3rem; font-weight: 800; letter-spacing: -2px; }
-        .loader { width: 30px; height: 30px; border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid white; border-radius: 50%; margin-top: 20px; animation: spin 1s infinite linear; }
+        .loader { width: 30px; height: 30px; border: 4px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 1s infinite linear; margin-top: 20px; }
         @keyframes spin { to { transform: rotate(360deg); } }
         
-        /* Form */
         .form-area { padding: 24px; }
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
@@ -174,7 +161,9 @@
                     <div class="greeting">
                         <h1>Halo, Student! 👋</h1>
                     </div>
-                    <button class="theme-btn" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+                    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">
+                        <i class="fas fa-moon"></i>
+                    </button>
                 </div>
                 <div class="search-box">
                     <i class="fas fa-search" style="color:var(--text-sec)"></i>
@@ -198,7 +187,7 @@
                     <span id="pkg-text">UTBK - Literasi</span> <i class="fas fa-chevron-down"></i>
                 </button>
 
-                <div id="grid-menu" class="menu-grid"></div>
+                <div id="menu-container" class="menu-grid"></div>
 
                 <div class="stats-box">
                     <div class="stat" onclick="showComingSoon()">
@@ -230,7 +219,6 @@
                         <div class="sc-txt">Tips Lolos UTBK 2026</div>
                     </div>
                 </div>
-                
                 <a href="https://chat.whatsapp.com/K3RgtvP1yeOHBebfFmKNn0" class="wa-float" target="_blank"><i class="fab fa-whatsapp"></i> Support</a>
                 <div style="height:100px;"></div>
             </div>
@@ -251,9 +239,9 @@
 
             <div id="page-live" class="page-view">
                 <div class="chip-scroll">
-                    <div id="chip-kelas" class="chip active" onclick="switchSubMenu('kelas')">Kelas Online</div>
-                    <div id="chip-tutor" class="chip" onclick="switchSubMenu('tutor')">Sesi Tutor</div>
-                    <div id="chip-tryout" class="chip" onclick="switchSubMenu('tryout')">Tryout</div>
+                    <div id="chip-kelas" class="chip active" onclick="switchSub('kelas')">Kelas Online</div>
+                    <div id="chip-tutor" class="chip" onclick="switchSub('tutor')">Sesi Tutor</div>
+                    <div id="chip-tryout" class="chip" onclick="switchSub('tryout')">Tryout</div>
                 </div>
 
                 <div id="view-kelas">
@@ -267,15 +255,15 @@
                     </div>
                 </div>
 
-                <div id="view-tutor" style="display:none;">
-                    <div class="sect-title">Pilih Mapel Tutor</div>
-                    <div id="tutor-container" class="card-list"></div>
+                <div id="view-tutor" style="display:none; padding: 0 24px;">
+                    <div class="sect-title" style="padding-left:0;">Pilih Mapel Tutor</div>
+                    <div id="tutor-list"></div>
                 </div>
 
                 <div id="view-tryout" style="display:none; padding: 0 24px;">
                     <div class="live-card">
                         <div class="lc-head">
-                            <div class="lc-title">TO UTBK - SNBT 1</div>
+                            <div class="lc-title">TO UTBK 1</div>
                             <div class="lc-tag">15 Jan</div>
                         </div>
                         <button class="btn-main" onclick="showComingSoon()">Daftar Sekarang</button>
@@ -292,7 +280,7 @@
                 <div class="form-area">
                     <div class="stat" style="margin-bottom:20px; box-shadow:none; border:1px solid var(--border);">
                         <div class="s-ic blue"><i class="fas fa-chalkboard-teacher"></i></div>
-                        <div class="s-info"><span class="tc-label">Master Teacher</span><h4 class="tc-name" id="form-teacher">Name</h4></div>
+                        <div class="s-info"><span class="tc-label" style="font-size:0.7rem; color:var(--text-sec)">Master Teacher</span><h4 class="tc-name" id="form-teacher" style="font-size:1rem; color:var(--text-main); margin:0;">Name</h4></div>
                     </div>
                     <div class="form-group">
                         <label>Mata Pelajaran</label>
@@ -329,16 +317,14 @@
     </div>
 
     <script>
-        // --- DATA ---
         let currentPackage = 'literasi'; 
         let currentTeacherPhone = "";
 
+        // 🔥 DATA CHAPTERS DIPERBAIKI: "Latihan" -> "Video Materi" 🔥
         const chapters = [
-            { title: "Informasi UTBK-SNBT 2026", type: "Video", icon: "fas fa-bullhorn" },
-            { title: "Strategi Pengetahuan Kuantitatif", type: "Video", icon: "fas fa-lightbulb" },
-            { title: "Bilangan", type: "Materi", icon: "fas fa-calculator" },
-            { title: "Aljabar dan Fungsi", type: "Materi", icon: "fas fa-superscript" },
-            { title: "Geometri", type: "Latihan", icon: "fas fa-shapes" }
+            { title: "Bilangan", type: "Video Materi", icon: "calculator" },
+            { title: "Aljabar dan Fungsi", type: "Materi", icon: "superscript" },
+            { title: "Geometri", type: "Video Materi", icon: "shapes" }
         ];
 
         const tutors = [
@@ -356,69 +342,66 @@
             { title: "Kuantitatif", teacher: "Salman", date: "07 Jan", link: "https://us06web.zoom.us/rec/share/cHiECTh2wrvmYBKNcg1cIcgDomVFkqwQkVV41MdJGeZo7ZwZsHhKvjXrfyG7iXGW.rDZq5dliQpJY-TWl" }
         ];
 
-        // --- INIT ---
-        window.addEventListener('load', () => {
-            // Theme Check
+        window.onload = function() {
             if(localStorage.getItem('theme') === 'dark') {
                 document.documentElement.setAttribute('data-theme', 'dark');
-                document.querySelector('.theme-btn i').classList.replace('fa-moon', 'fa-sun');
+                document.querySelector('#theme-btn i').className = 'fas fa-sun';
             }
-
-            // Package Check
-            const savedPkg = localStorage.getItem('daily_study_package');
-            if(savedPkg) { currentPackage = savedPkg; updateHeaderPkg(savedPkg); }
-
-            // Render All
+            if(localStorage.getItem('daily_study_package')) {
+                currentPackage = localStorage.getItem('daily_study_package');
+                updateHeaderPkg(currentPackage);
+            }
+            
             renderMenu();
             renderTutors();
             renderHistory();
             renderChapters();
 
-            // Splash Gone
             setTimeout(() => {
                 document.getElementById('splash-screen').style.opacity = '0';
                 setTimeout(() => document.getElementById('splash-screen').style.display = 'none', 500);
             }, 1000);
-        });
+        };
 
-        // --- RENDERERS ---
         function renderMenu() {
-            const container = document.getElementById('grid-menu');
+            const container = document.getElementById('menu-container');
             let items = [];
+            
             if(currentPackage === 'skolastik') {
                 items = [
-                    { icon: 'brain', color: '#6366f1', label: 'Pen. Umum' },
-                    { icon: 'lightbulb', color: '#14b8a6', label: 'Peng. Umum' },
+                    { icon: 'brain', color: '#6366f1', label: 'Pen. Umum', action: 'showComingSoon()' },
+                    { icon: 'lightbulb', color: '#14b8a6', label: 'Peng. Umum', action: 'showComingSoon()' },
                     { icon: 'calculator', color: 'var(--primary)', label: 'Kuantitatif', action: "openDetail()" }, 
                     { icon: 'th-large', color: 'var(--text-sec)', label: 'Semua', action: 'openAllSubjects()' }
                 ];
             } else {
                 items = [
-                    { icon: 'book-open', color: 'var(--primary)', label: 'Lit. Indo' },
-                    { icon: 'language', color: '#6366f1', label: 'Lit. Ing' },
-                    { icon: 'chart-pie', color: '#14b8a6', label: 'Penalaran' },
+                    { icon: 'book-open', color: 'var(--primary)', label: 'Lit. Indo', action: 'showComingSoon()' },
+                    { icon: 'language', color: '#6366f1', label: 'Lit. Ing', action: 'showComingSoon()' },
+                    { icon: 'chart-pie', color: '#14b8a6', label: 'Penalaran', action: 'showComingSoon()' },
                     { icon: 'th-large', color: 'var(--text-sec)', label: 'Semua', action: 'openAllSubjects()' }
                 ];
             }
             container.innerHTML = items.map(i => `
-                <div class="menu-item" onclick="${i.action ? i.action : 'showComingSoon()'}">
+                <div class="menu-item" onclick="${i.action}">
                     <div class="m-icon" style="color:${i.color}"><i class="fas fa-${i.icon}"></i></div>
                     <div class="m-text">${i.label}</div>
                 </div>
             `).join('');
         }
 
+        // 🔥 FIX TUTOR: BUTTON KUANTITATIF JADI 'PESAN SESI' 🔥
         function renderTutors() {
-            document.getElementById('tutor-container').innerHTML = tutors.map(t => `
-                <div class="live-card">
+            document.getElementById('tutor-list').innerHTML = tutors.map(t => `
+                <div class="live-card" style="margin-bottom:15px;">
                     <div class="lc-head">
                         <div class="lc-title">${t.subject}</div>
                         <div class="lc-tag">Setiap Hari</div>
                     </div>
                     <div class="lc-row"><i class="far fa-clock"></i> 07:00 - 20:45</div>
                     <div class="lc-row"><i class="fas fa-chalkboard-teacher"></i> ${t.teacher}</div>
-                    <button class="btn-main" onclick="${t.id === 1 ? "openDetail()" : "openForm('" + t.subject + "', '" + t.teacher + "', '" + t.phone + "')"}">
-                        ${t.id === 1 ? 'Lihat Materi' : 'Pesan Sesi'}
+                    <button class="btn-main" onclick="openForm('${t.subject}', '${t.teacher}', '${t.phone}')">
+                        Pesan Sesi
                     </button>
                 </div>
             `).join('');
@@ -426,7 +409,7 @@
 
         function renderHistory() {
             document.getElementById('history-container').innerHTML = historyData.map(h => `
-                <div class="live-card">
+                <div class="live-card" style="margin-bottom:15px;">
                     <div class="lc-head">
                         <div class="lc-title">${h.title}</div>
                         <div class="lc-tag" style="background:#dcfce7; color:#16a34a">Selesai</div>
@@ -441,53 +424,52 @@
         function renderChapters() {
             document.getElementById('chapter-list').innerHTML = chapters.map(c => `
                 <div class="chapter-item">
-                    <div class="ch-icon"><i class="${c.icon}"></i></div>
+                    <div class="ch-icon"><i class="fas fa-${c.icon}"></i></div>
                     <div class="ch-info">
-                        <div class="ch-title">${c.title}</div>
-                        <div class="ch-meta"><span class="badge">ADAPTO</span> ${c.type}</div>
+                        <h4>${c.title}</h4>
+                        <span>${c.type}</span>
                     </div>
                     <i class="fas fa-chevron-right" style="color:var(--text-sec); font-size:0.8rem;"></i>
                 </div>
             `).join('');
         }
 
-        // --- NAVIGATION ---
-        function switchTab(pageId) {
+        function switchTab(id) {
             document.querySelectorAll('.page-view').forEach(e => e.classList.remove('active'));
             document.querySelectorAll('.header-inner').forEach(e => e.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(e => e.classList.remove('active'));
 
-            document.getElementById('page-' + pageId).classList.add('active');
+            document.getElementById('page-'+id).classList.add('active');
             
-            if(pageId === 'home') {
+            if(id === 'home') {
                 document.getElementById('head-home').classList.add('active');
                 document.querySelectorAll('.nav-btn')[0].classList.add('active');
-            } else if (pageId === 'live') {
+            } else if (id === 'live') {
                 document.getElementById('head-live').classList.add('active');
                 document.querySelectorAll('.nav-btn')[1].classList.add('active');
             }
         }
 
-        function switchSubMenu(viewId) {
-            document.querySelectorAll('.chip').forEach(e => e.classList.remove('active'));
-            document.getElementById('chip-' + viewId).classList.add('active');
-            
-            ['kelas', 'tutor', 'tryout'].forEach(id => document.getElementById('view-' + id).style.display = 'none');
-            document.getElementById('view-' + viewId).style.display = 'block';
+        function switchSub(id) {
+            ['kelas','tutor','tryout'].forEach(x => {
+                document.getElementById('view-'+x).style.display = 'none';
+                document.getElementById('chip-'+x).classList.remove('active');
+            });
+            document.getElementById('view-'+id).style.display = 'block';
+            document.getElementById('chip-'+id).classList.add('active');
 
-            // Show Tabs only for Kelas
-            document.querySelector('.live-tabs').style.display = viewId === 'kelas' ? 'flex' : 'none';
+            document.querySelector('.live-tabs').style.display = id==='kelas' ? 'flex' : 'none';
         }
 
-        function switchLiveTab(tabId, el) {
+        function switchLiveTab(tab, el) {
             document.querySelectorAll('.tab').forEach(e => e.classList.remove('active'));
             el.classList.add('active');
-            document.getElementById('tab-upcoming').style.display = tabId === 'upcoming' ? 'block' : 'none';
-            document.getElementById('tab-history').style.display = tabId === 'history' ? 'block' : 'none';
+            document.getElementById('tab-upcoming').style.display = tab==='upcoming' ? 'block' : 'none';
+            document.getElementById('tab-history').style.display = tab==='history' ? 'block' : 'none';
         }
 
-        // --- ACTIONS ---
         function openDetail() {
+            closeModal();
             document.querySelector('.app-header').style.display = 'none';
             document.querySelectorAll('.page-view').forEach(e => e.classList.remove('active'));
             document.getElementById('page-detail').classList.add('active');
@@ -514,30 +496,25 @@
             switchTab('live');
         }
 
+        // 🔥 FIX TEMPLATE WA KEREN 🔥
+        function sendWA() {
+            const msg = document.getElementById('form-msg').value;
+            const sub = document.getElementById('form-subject').value;
+            const teacher = document.getElementById('form-teacher').innerText;
+
+            if(!msg) { alert("Tulis pertanyaan dulu ya!"); return; }
+
+            const text = `Halo Kak ${teacher}! 👋\n\nSaya ingin konsultasi mengenai materi *${sub}* via Daily Study.\n\n📝 *Pertanyaan:*\n${msg}\n\nMohon bantuannya ya Kak, terima kasih! 🚀`;
+
+            window.open(`https://wa.me/${currentTeacherPhone}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
         function toggleTheme() {
             const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
             const newTheme = isDark ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
-            document.querySelector('.theme-btn i').className = isDark ? 'fas fa-moon' : 'fas fa-sun';
-        }
-
-        function sendWA() {
-            const msg = document.getElementById('tutor-msg').value;
-            window.open(`https://wa.me/${currentTeacherPhone}?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        // --- MODALS ---
-        function showComingSoon() {
-            const m = document.getElementById('modal-overlay');
-            m.classList.add('active');
-            document.getElementById('modal-content').innerHTML = `
-                <div style="text-align:center">
-                    <i class="fas fa-rocket" style="font-size:3rem; color:var(--primary); margin-bottom:15px;"></i>
-                    <h3 style="color:var(--text-main)">Coming Soon!</h3>
-                    <button class="btn-main" onclick="closeModal()">Oke</button>
-                </div>
-            `;
+            document.querySelector('#theme-btn i').className = isDark ? 'fas fa-moon' : 'fas fa-sun';
         }
 
         function openClassModal() {
@@ -545,8 +522,8 @@
             m.classList.add('active');
             document.getElementById('modal-content').innerHTML = `
                 <h3 style="text-align:center; margin-bottom:20px; color:var(--text-main);">Pilih Paket</h3>
-                <div class="modal-opt ${currentPackage==='literasi'?'active':''}" onclick="setPkg('literasi')">Tes Literasi</div>
-                <div class="modal-opt ${currentPackage==='skolastik'?'active':''}" onclick="setPkg('skolastik')">Tes Potensi Skolastik</div>
+                <div class="pkg-option ${currentPackage==='literasi'?'active':''}" onclick="setPkg('literasi')">Tes Literasi</div>
+                <div class="pkg-option ${currentPackage==='skolastik'?'active':''}" onclick="setPkg('skolastik')">Tes Potensi Skolastik</div>
             `;
         }
 
@@ -555,20 +532,41 @@
             m.classList.add('active');
             document.getElementById('modal-content').innerHTML = `
                 <h3 style="text-align:center; margin-bottom:20px; color:var(--text-main);">Semua Pelajaran</h3>
-                <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px;">
+                <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:15px;">
                     ${getAllIcons()}
                 </div>
-                <button class="btn-main" style="margin-top:20px; background:var(--bg-body); color:var(--text-main);" onclick="closeModal()">Tutup</button>
+                <button class="btn-main" onclick="closeModal()" style="margin-top:20px; background:var(--bg-app); color:var(--text-main); border:1px solid var(--border)">Tutup</button>
+            `;
+        }
+
+        function showComingSoon() {
+            const m = document.getElementById('modal-overlay');
+            m.classList.add('active');
+            document.getElementById('modal-content').innerHTML = `
+                <div style="text-align:center">
+                    <i class="fas fa-rocket" style="font-size:3rem; color:var(--primary); margin-bottom:15px;"></i>
+                    <h3 style="color:var(--text-main); margin-bottom:10px;">Coming Soon!</h3>
+                    <p style="color:var(--text-sec); font-size:0.9rem; margin-bottom:20px;">Fitur ini sedang dalam tahap pengembangan.</p>
+                    <button class="btn-main" onclick="closeModal()">Oke, Mengerti</button>
+                </div>
             `;
         }
 
         function getAllIcons() {
             return [
-                {c:'var(--primary)', i:'book-open', l:'Indo'}, {c:'#6366f1', i:'language', l:'Inggris'},
-                {c:'#14b8a6', i:'chart-pie', l:'Penalaran'}, {c:'#6366f1', i:'brain', l:'Pen.Umum'},
-                {c:'#14b8a6', i:'lightbulb', l:'Peng.Umum'}, {c:'var(--primary)', i:'book', l:'PBM'},
-                {c:'var(--text-sec)', i:'calculator', l:'Kuantitatif'}
-            ].map(x => `<div style="text-align:center"><div style="width:50px; height:50px; background:var(--bg-app); border-radius:16px; display:flex; justify-content:center; align-items:center; margin:0 auto 5px; color:${x.c}; font-size:1.3rem; border:1px solid var(--border);"><i class="fas fa-${x.i}"></i></div><div style="font-size:0.7rem; font-weight:600; color:var(--text-sec);">${x.l}</div></div>`).join('');
+                {c:'var(--primary)', i:'book-open', l:'Indo', a:'showComingSoon()'}, 
+                {c:'#6366f1', i:'language', l:'Inggris', a:'showComingSoon()'},
+                {c:'#14b8a6', i:'chart-pie', l:'Penalaran', a:'showComingSoon()'}, 
+                {c:'#6366f1', i:'brain', l:'Pen.Umum', a:'showComingSoon()'},
+                {c:'#14b8a6', i:'lightbulb', l:'Peng.Umum', a:'showComingSoon()'}, 
+                {c:'var(--primary)', i:'book', l:'PBM', a:'showComingSoon()'},
+                {c:'var(--text-sec)', i:'calculator', l:'Kuantitatif', a:'openDetail()'} 
+            ].map(x => `<div style="text-align:center; cursor:pointer;" onclick="${x.a}">
+                <div style="width:50px; height:50px; background:var(--bg-app); border-radius:16px; display:flex; justify-content:center; align-items:center; margin:0 auto 5px; color:${x.c}; font-size:1.3rem; border:1px solid var(--border);">
+                    <i class="fas fa-${x.i}"></i>
+                </div>
+                <div style="font-size:0.7rem; font-weight:600; color:var(--text-sec);">${x.l}</div>
+            </div>`).join('');
         }
 
         function setPkg(pkg) {
@@ -578,13 +576,8 @@
             renderMenu();
             closeModal();
         }
-
-        function updateHeaderPkg(pkg) {
-            document.getElementById('pkg-text').innerText = pkg === 'literasi' ? 'UTBK - Literasi' : 'UTBK - Potensi';
-        }
-
+        function updateHeaderPkg(pkg) { document.getElementById('pkg-text').innerText = pkg === 'literasi' ? 'UTBK - Literasi' : 'UTBK - Potensi'; }
         function closeModal() { document.getElementById('modal-overlay').classList.remove('active'); }
-        function updateFile() { alert("File dipilih!"); }
     </script>
 </body>
 </html>
