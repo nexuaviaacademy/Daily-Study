@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Daily Study</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="splash-screen">
+        <div class="splash-logo">daily<span>study</span></div>
+    </div>
+
+    <div class="app-container">
+        
+        <div id="main-app">
+            
+            <div id="home-page" class="page-content" style="display: block;">
+                <div class="top-section">
+                    <div class="header-top">
+                        <div class="greeting">Halo, <span>Student!</span> 👋</div>
+                    </div>
+                    <div class="search-box">
+                        <i class="fas fa-search" style="color:var(--text-sec)"></i>
+                        <input type="text" placeholder="Mau belajar apa hari ini?">
+                    </div>
+                    <div class="filter-pill" onclick="openClassModal()">
+                        <span id="filter-btn-text">UTBK - Tes Literasi</span> 
+                        <i class="fas fa-chevron-down" style="font-size:0.7rem;"></i>
+                    </div>
+                </div>
+
+                <div id="main-grid-menu" class="grid-menu"></div>
+
+                <div class="stats-grid">
+                    <div class="stat-card" onclick="showComingSoon()">
+                        <div class="stat-icon"><i class="fas fa-chart-line" style="color:var(--primary);"></i></div>
+                        <div><div style="font-size:0.75rem; color:var(--text-sec); font-weight:600;">Laporan</div><div style="font-weight:800; font-size:1rem;">Cek Progres</div></div>
+                    </div>
+                    <div class="stat-card" onclick="showComingSoon()">
+                        <div class="stat-icon"><i class="fas fa-dumbbell" style="color:var(--accent);"></i></div>
+                        <div><div style="font-size:0.75rem; color:var(--text-sec); font-weight:600;">Latihan</div><div style="font-weight:800; font-size:1rem;">Drill Soal</div></div>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <div class="section-title">Pilihan Belajar Terbaik</div>
+                </div>
+                <div class="h-scroll">
+                    <div class="scroll-item" onclick="showComingSoon()"><div class="scroll-icon" style="color:#06b6d4;"><i class="fas fa-tasks"></i></div><span class="menu-label">Tryout</span></div>
+                    <div class="scroll-item" onclick="switchTab('live')"><div class="scroll-icon" style="color:#f97316;"><i class="fas fa-video"></i></div><span class="menu-label">Live Class</span></div>
+                    <div class="scroll-item"><div class="scroll-icon" style="color:#8b5cf6;"><i class="fas fa-layer-group"></i></div><span class="menu-label">Fundamental</span></div>
+                    <div class="scroll-item" onclick="showComingSoon()"><div class="scroll-icon" style="color:#10b981;"><i class="fas fa-calendar-check"></i></div><span class="menu-label">Daily Habit</span></div>
+                </div>
+
+                <div class="section-header">
+                    <div class="section-title">Daily Read</div>
+                </div>
+                <div class="h-scroll">
+                    <div class="article-card" onclick="showComingSoon()">
+                        <div class="article-img"><img src="https://source.unsplash.com/random/240x120?university" alt="img"></div>
+                        <div class="article-content">
+                            <div class="article-title">Jurusan Sepi Peminat</div>
+                            <div class="article-desc">Peluang lolos lebih besar...</div>
+                        </div>
+                    </div>
+                    <div class="article-card" onclick="showComingSoon()">
+                        <div class="article-img"><img src="https://source.unsplash.com/random/240x120?student" alt="img"></div>
+                        <div class="article-content">
+                            <div class="article-title">Tips UTBK 2026</div>
+                            <div class="article-desc">Strategi belajar efektif...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="https://chat.whatsapp.com/K3RgtvP1yeOHBebfFmKNn0" class="wa-btn" target="_blank">
+                    <i class="fab fa-whatsapp" style="font-size:1.3rem;"></i> Join Grup WA
+                </a>
+            </div>
+
+            <div id="live-page" class="page-content" style="display: none;">
+                <div class="top-section">
+                    <div class="search-box" style="margin-bottom:15px;">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Cari sesi live...">
+                    </div>
+                    
+                    <div class="live-filters">
+                        <div class="search-box" style="padding: 10px 16px;">
+                            <i class="fas fa-calendar-alt"></i>
+                            <input type="date" class="date-input-styled" id="liveDateInput">
+                        </div>
+                    </div>
+
+                    <div id="tab-selector-container" class="live-tabs">
+                        <div class="live-tab-item active" onclick="switchLiveTab('upcoming', this)">Sesi Tersedia</div>
+                        <div class="live-tab-item" onclick="switchLiveTab('history', this)">Riwayat</div>
+                    </div>
+
+                    <div class="live-sub-menu">
+                        <div id="sub-kelas" class="sub-menu-item active" onclick="switchSubMenu('kelas')">
+                            <div class="sub-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                            <span>Kelas<br>Online</span>
+                        </div>
+                        <div id="sub-tutor" class="sub-menu-item" onclick="switchSubMenu('tutor')">
+                            <div class="sub-icon"><i class="fas fa-comments"></i></div>
+                            <span>Sesi<br>Tutor</span>
+                        </div>
+                        <div id="sub-tryout" class="sub-menu-item" onclick="switchSubMenu('tryout')">
+                            <div class="sub-icon"><i class="fas fa-clipboard-list"></i></div>
+                            <span>Tryout</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="content-kelas-online" style="padding: 24px;">
+                    <div id="tab-upcoming">
+                        <div id="empty-state-upcoming" class="empty-state">
+                            <i class="far fa-calendar-check" style="font-size:3rem; margin-bottom:10px; color:#cbd5e1;"></i>
+                            <p>Tidak ada jadwal lain</p>
+                        </div>
+                    </div>
+
+                    <div id="tab-history" style="display: none;">
+                        <div id="history-card-container" class="history-item-container">
+                            </div>
+                        <div id="empty-state-history" class="empty-state" style="display:none;">
+                            <i class="fas fa-history" style="font-size:3rem; margin-bottom:10px; color:#cbd5e1;"></i>
+                            <p>Tidak ada riwayat</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="content-sesi-tutor" style="padding: 24px; display: none;">
+                    <h3 style="font-size:1.1rem; font-weight:800; margin-bottom:16px; color:var(--text-main);">Pilih Mata Pelajaran</h3>
+                    <div id="tutor-list-container">
+                        </div>
+                </div>
+
+                <div id="content-tryout" style="padding: 24px; display: none;">
+                    <div style="text-align:center; margin-bottom:20px;">
+                        <h2 style="font-size:1.5rem; font-weight:800; color:var(--text-main);">Uji Kemampuan</h2>
+                        <p style="opacity:0.8;">Ikuti tryout berkala untuk hasil maksimal.</p>
+                    </div>
+                    <div class="to-card">
+                        <div>
+                            <div style="font-weight:800; color:var(--text-main);">TO UTBK - SNBT 1</div>
+                            <div style="font-size:0.8rem; color:var(--text-sec); margin-top:5px;">15 - 17 Jan 2026</div>
+                        </div>
+                        <button class="btn-primary" style="padding:8px 20px; border-radius:100px; border:none; font-weight:700; cursor:pointer;" onclick="showComingSoon()">Daftar</button>
+                    </div>
+                    <div class="to-card" style="margin-top:15px;">
+                        <div>
+                            <div style="font-weight:800; color:var(--text-main);">TO UTBK - SNBT 2</div>
+                            <div style="font-size:0.8rem; color:var(--text-sec); margin-top:5px;">22 - 24 Jan 2026</div>
+                        </div>
+                        <button style="background:#e2e8f0; color:#94a3b8; border:none; padding:8px 20px; border-radius:100px; font-weight:700;">Belum</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="tutor-form-page" class="page-content" style="display: none; background:var(--bg-body);">
+                <div class="form-header-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                        <div class="icon-box" onclick="closeTutorForm()" style="width:40px; height:40px; border-radius:12px; cursor:pointer; background:rgba(255,255,255,0.2); color:white; border:none;"><i class="fas fa-arrow-left"></i></div>
+                        <div style="background:rgba(255,255,255,0.2); padding:6px 16px; border-radius:100px; font-size:0.75rem; font-weight:700;">Setiap Hari</div>
+                    </div>
+                    <h2 id="form-subject-title" style="font-size:1.8rem; font-weight:800; line-height:1.2; margin-bottom:16px;">Subject</h2>
+                    <div class="form-teacher-box">
+                        <div class="form-avatar">T</div>
+                        <div>
+                            <div style="font-size:0.75rem; color:var(--text-sec); font-weight:600;">Master Teacher</div>
+                            <div id="form-teacher-name" style="font-weight:800; font-size:1.1rem;">Teacher Name</div>
+                        </div>
+                    </div>
+                    <div style="margin-top:16px; font-weight:600; opacity:0.9;">
+                        <i class="far fa-clock"></i> <span id="form-time">Time</span>
+                    </div>
+                </div>
+
+                <div style="padding:24px;">
+                    <label class="form-label" style="font-weight:700; margin-bottom:12px; display:block; color:var(--text-main);">Diskusi apa hari ini?</label>
+                    <textarea id="tutor-msg" class="form-input" placeholder="Tulis pertanyaanmu di sini..."></textarea>
+                    
+                    <div style="margin-top:20px;">
+                        <label class="file-upload-box" style="justify-content:center;">
+                            <i class="fas fa-paperclip"></i> <span id="file-name-display">Upload Lampiran (Gambar/PDF)</span>
+                            <input type="file" id="tutor-file" class="hidden-file-input" onchange="updateFileName()">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="fixed-bottom">
+                    <button class="btn-full btn-primary" onclick="sendToWA()">Kirim Pesan (WhatsApp)</button>
+                </div>
+            </div>
+
+            <nav class="bottom-nav">
+                <div class="nav-item active" onclick="switchTab('home')">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('live')">
+                    <i class="fas fa-video"></i>
+                    <span>Live</span>
+                </div>
+            </nav>
+
+        </div>
+
+        <div id="class-modal" class="modal-overlay" onclick="if(event.target == this) closeClassModal()">
+            <div class="modal-sheet">
+                <div class="modal-handle"></div>
+                <h3 style="font-size:1.2rem; font-weight:800; margin-bottom:20px; text-align:center;">Pilih Paket Belajar</h3>
+                <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:20px;">
+                    <div id="btn-skolastik" class="class-option" onclick="selectPackage('skolastik')">Tes Potensi Skolastik</div>
+                    <div id="btn-literasi" class="class-option active" onclick="selectPackage('literasi')">Tes Literasi</div>
+                </div>
+                <button class="btn-full btn-primary" onclick="saveClassSettings()">Simpan Perubahan</button>
+            </div>
+        </div>
+
+        <div id="subjects-modal" class="modal-overlay" onclick="if(event.target == this) closeSubjectsModal()">
+            <div class="modal-sheet">
+                <div class="modal-handle"></div>
+                <h3 style="font-size:1.2rem; font-weight:800; margin-bottom:20px; text-align:center;">Semua Pelajaran</h3>
+                <div id="modal-grid-content" class="grid-menu" style="padding:0; gap:16px;"></div>
+            </div>
+        </div>
+
+        <div id="coming-soon-modal" class="cs-modal-overlay" onclick="if(event.target == this) closeComingSoon()">
+            <div class="cs-content">
+                <div class="cs-icon"><i class="fas fa-rocket"></i></div>
+                <h3 style="font-size:1.4rem; font-weight:800; color:var(--text-main); margin-bottom:12px;">Coming Soon!</h3>
+                <p style="font-size:1rem; color:var(--text-sec); line-height:1.6; margin-bottom:24px;">Fitur ini sedang kami siapkan.</p>
+                <button class="btn-full btn-primary" style="margin-top:0;" onclick="closeComingSoon()">Oke, Siap!</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
