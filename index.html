@@ -3,10 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Daily Study</title>
+    <title>Daily Study Premium Fixed</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* --- 1. DESIGN SYSTEM (PREMIUM INDIGO) --- */
+        :root {
+            --primary: #6366f1; /* Indigo Premium */
+            --primary-soft: #e0e7ff;
+            --accent: #f43f5e;
+            --text-main: #1e293b;
+            --text-sec: #64748b;
+            --bg-body: #cbd5e1; /* Background luar desktop */
+            --bg-app: #f8fafc;  /* Background dalam aplikasi */
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --max-w: 480px;
+            --shadow: 0 4px 20px -5px rgba(99, 102, 241, 0.15);
+        }
+
+        [data-theme="dark"] {
+            --primary: #818cf8;
+            --primary-soft: #312e81;
+            --text-main: #f1f5f9;
+            --text-sec: #94a3b8;
+            --bg-body: #0f172a;
+            --bg-app: #0f172a;
+            --bg-card: #1e293b;
+            --border: #334155;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; outline: none; }
+
+        /* --- 2. LAYOUT ENGINE (ANTI-BERANTAKAN) --- */
+        body { 
+            background: var(--bg-body); 
+            height: 100vh; width: 100%; 
+            display: flex; justify-content: center; 
+            overflow: hidden; 
+        }
+
+        .app-container {
+            width: 100%; max-width: var(--max-w);
+            background: var(--bg-app); height: 100%;
+            display: flex; flex-direction: column;
+            position: relative; box-shadow: 0 0 50px rgba(0,0,0,0.2);
+        }
+
+        /* Header & Nav (Fixed) */
+        .app-header { flex-shrink: 0; z-index: 50; background: var(--bg-card); border-bottom: 1px solid var(--border); transition: 0.3s; }
+        .app-nav { flex-shrink: 0; height: 75px; background: var(--bg-card); border-top: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; z-index: 50; padding-bottom: 5px; }
+
+        /* Content (Scrollable) */
+        .app-content { flex-grow: 1; overflow-y: auto; overflow-x: hidden; position: relative; scroll-behavior: smooth; }
+        .page-view { display: none; animation: fade 0.25s; padding-bottom: 20px; }
+        .page-view.active { display: block; }
+        @keyframes fade { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- 3. COMPONENTS --- */
+        /* Header */
+        .header-inner { display: none; padding: 15px 24px; }
+        .header-inner.active { display: block; }
+        .top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .greeting h1 { font-size: 1.3rem; font-weight: 800; color: var(--text-main); margin: 0; }
+        .greeting span { color: var(--primary); }
+        .theme-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--bg-app); border: 1px solid var(--border); color: var(--text-main); cursor: pointer; display: flex; justify-content: center; align-items: center; }
+
+        .search-box { background: var(--bg-app); padding: 12px 16px; border-radius: 12px; display: flex; align-items: center; gap: 10px; border: 1px solid var(--border); }
+        .search-box input { border: none; background: transparent; width: 100%; color: var(--text-main); font-size: 0.9rem; }
+
+        /* Home */
+        .filter-btn { margin: 20px 24px 10px; background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 100px; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.4); }
+
+        .menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 10px 24px; margin-bottom: 20px; }
+        .menu-item { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; text-align: center; }
+        .m-icon { width: 56px; height: 56px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; display: flex; justify-content: center; align-items: center; font-size: 1.4rem; box-shadow: var(--shadow); color: var(--text-main); transition: 0.1s; }
+        .m-icon:active { transform: scale(0.95); }
+        .m-text { font-size: 0.7rem; font-weight: 600; color: var(--text-sec); }
+
+        .stats-box { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 24px 25px; }
+        .stat { background: var(--bg-card); padding: 16px; border-radius: 20px; display: flex; align-items: center; gap: 12px; border: 1px solid var(--border); box-shadow: var(--shadow); cursor: pointer; }
+        .s-ic { width: 40px; height: 40px; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 1.1rem; }
+        .s-ic.blue { background: #e0e7ff; color: #4f46e5; } .s-ic.orange { background: #ffedd5; color: #f97316; }
+        .s-info h4 { margin: 0; font-size: 0.9rem; color: var(--text-main); }
+        .s-info span { font-size: 0.7rem; color: var(--text-sec); }
+
+        .sect-title { font-size: 1.1rem; font-weight: 800; color: var(--text-main); padding: 0 24px 15px; }
+        .h-scroll { display: flex; gap: 15px; overflow-x: auto; padding: 0 24px 10px; scrollbar-width: none; }
+        .scroll-card { min-width: 260px; background: var(--bg-card); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; cursor: pointer; margin-bottom: 5px; }
+        .sc-img { height: 110px; background: #cbd5e1; } .sc-txt { padding: 12px; font-weight: 700; color: var(--text-main); font-size: 0.9rem; }
+
+        /* Detail Page (PK) */
+        .detail-hero { padding: 30px 24px; background: linear-gradient(135deg, #6366f1, #4f46e5); color: white; border-radius: 0 0 30px 30px; margin-bottom: 20px; position: relative; }
+        .back-absolute { position: absolute; top: 20px; left: 20px; color: white; background: rgba(255,255,255,0.2); width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; border: none; font-size: 1.1rem; }
+        .hero-title { margin-top: 40px; font-size: 1.6rem; font-weight: 800; line-height: 1.2; margin-bottom: 5px; }
+        .progress-bar { height: 6px; background: rgba(255,255,255,0.3); border-radius: 10px; margin-top: 15px; overflow: hidden; }
+        .progress-fill { height: 100%; width: 0%; background: #4ade80; }
+
+        .chapter-item { background: var(--bg-card); margin: 0 24px 12px; padding: 16px; border-radius: 16px; border: 1px solid var(--border); display: flex; align-items: center; gap: 15px; cursor: pointer; }
+        .ch-icon { width: 45px; height: 45px; background: var(--primary-soft); color: var(--primary); border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 1.2rem; flex-shrink: 0; }
+        .ch-info h4 { margin: 0 0 4px; font-size: 0.9rem; color: var(--text-main); }
+        .badge { background: #0f172a; color: white; font-size: 0.65rem; padding: 2px 8px; border-radius: 4px; font-weight: 700; }
+
+        /* Live & Tutor Cards */
+        .card-list { display: flex; flex-direction: column; gap: 15px; padding: 0 24px; }
+        .live-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 20px; }
+        .lc-head { display: flex; justify-content: space-between; margin-bottom: 15px; align-items: center; }
+        .lc-title { font-weight: 800; font-size: 1.1rem; color: var(--text-main); }
+        .lc-tag { background: var(--primary-soft); color: var(--primary); padding: 4px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 700; }
+        .lc-row { display: flex; align-items: center; gap: 10px; color: var(--text-sec); font-size: 0.85rem; margin-bottom: 8px; }
+        .lc-row i { color: var(--primary); width: 20px; text-align: center; }
+        
+        .btn-main { width: 100%; background: var(--primary); color: white; padding: 12px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; margin-top: 10px; }
+        .btn-outline { width: 100%; background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 10px; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+
+        /* Live Chips & Tabs */
+        .live-tabs { display: flex; background: var(--bg-app); padding: 5px; border-radius: 12px; margin-top: 10px; border: 1px solid var(--border); }
+        .tab { flex: 1; text-align: center; padding: 8px; font-size: 0.85rem; font-weight: 700; color: var(--text-sec); border-radius: 8px; cursor: pointer; }
+        .tab.active { background: var(--bg-card); color: var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .chip-scroll { display: flex; gap: 10px; overflow-x: auto; padding: 20px 24px; scrollbar-width: none; }
+        .chip { white-space: nowrap; padding: 8px 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 100px; font-weight: 600; color: var(--text-sec); cursor: pointer; }
+        .chip.active { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); }
+
+        /* Nav Bottom */
+        .nav-btn { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-sec); cursor: pointer; flex: 1; }
+        .nav-btn.active { color: var(--primary); }
+        .nav-btn i { font-size: 1.4rem; }
+        .nav-btn span { font-size: 0.7rem; font-weight: 700; }
+
+        /* Utils */
+        .wa-float { position: fixed; bottom: 100px; right: 20px; background: #25D366; color: white; padding: 12px 20px; border-radius: 100px; font-weight: 700; text-decoration: none; box-shadow: 0 8px 20px rgba(37,211,102,0.3); z-index: 90; display: flex; align-items: center; gap: 8px; }
+        .empty-state { text-align: center; padding: 40px 20px; color: var(--text-sec); }
+        .empty-state i { font-size: 3rem; margin-bottom: 10px; opacity: 0.5; }
+
+        /* Modal */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; display: none; align-items: flex-end; justify-content: center; backdrop-filter: blur(4px); }
+        .modal-overlay.active { display: flex; }
+        .modal-sheet { background: var(--bg-card); width: 100%; max-width: 480px; border-radius: 24px 24px 0 0; padding: 30px 24px; animation: slideUp 0.3s; }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .modal-opt { padding: 15px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; text-align: center; font-weight: 700; color: var(--text-sec); cursor: pointer; }
+        .modal-opt.active { background: var(--primary-soft); color: var(--primary); border-color: var(--primary); }
+
+        /* Splash */
+        #splash-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--primary); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 0.5s; }
+        .splash-logo { color: white; font-size: 3rem; font-weight: 800; letter-spacing: -2px; }
+        .loader { width: 30px; height: 30px; border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid white; border-radius: 50%; margin-top: 20px; animation: spin 1s infinite linear; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        /* Form */
+        .form-area { padding: 24px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
+        .form-input { width: 100%; padding: 14px; border: 1px solid var(--border); background: var(--bg-app); border-radius: 12px; color: var(--text-main); outline: none; }
+        textarea.form-input { height: 120px; resize: none; }
+    </style>
 </head>
 <body>
 
@@ -15,174 +166,425 @@
         <div class="loader"></div>
     </div>
 
-    <div class="app-layout">
+    <div class="app-container">
         
-        <nav class="sidebar">
-            <div class="logo-area">daily<span>study</span></div>
-            <div class="side-menu">
-                <div class="side-link active" onclick="switchTab('home')"><i class="fas fa-home"></i> Home</div>
-                <div class="side-link" onclick="switchTab('live')"><i class="fas fa-video"></i> Live Class</div>
-                <div class="side-link" onclick="showComingSoon()"><i class="fas fa-tasks"></i> Tryout</div>
-                <div class="side-link" onclick="showComingSoon()"><i class="fas fa-chart-line"></i> Laporan</div>
+        <div class="app-header">
+            <div id="head-home" class="header-inner active">
+                <div class="top-row">
+                    <div class="greeting">
+                        <h1>Halo, Student! 👋</h1>
+                    </div>
+                    <button class="theme-btn" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-search" style="color:var(--text-sec)"></i>
+                    <input type="text" placeholder="Mau belajar apa hari ini?">
+                </div>
             </div>
-        </nav>
 
-        <div class="main-content">
+            <div id="head-live" class="header-inner">
+                <div style="text-align:center; font-weight:800; font-size:1.2rem; color:var(--text-main); margin-bottom:10px;">Live Class</div>
+                <div class="live-tabs">
+                    <div class="tab active" onclick="switchLiveTab('upcoming', this)">Jadwal</div>
+                    <div class="tab" onclick="switchLiveTab('history', this)">Riwayat</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content">
             
-            <div class="top-header">
-                <div class="header-left">
-                    <div class="greeting">Halo, <span>Student!</span> 👋</div>
-                    <p class="subtitle">Siap belajar apa hari ini?</p>
-                </div>
-                <div class="header-right">
-                    <button class="theme-btn" id="theme-toggle" onclick="toggleTheme()">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                </div>
-            </div>
+            <div id="page-home" class="page-view active">
+                <button class="filter-btn" onclick="openClassModal()">
+                    <span id="pkg-text">UTBK - Literasi</span> <i class="fas fa-chevron-down"></i>
+                </button>
 
-            <div id="page-home" class="page-section active">
-                
-                <div class="action-bar">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Cari materi...">
+                <div id="grid-menu" class="menu-grid"></div>
+
+                <div class="stats-box">
+                    <div class="stat" onclick="showComingSoon()">
+                        <div class="s-ic blue"><i class="fas fa-chart-pie"></i></div>
+                        <div class="s-info"><span>Laporan</span><h4>Cek Progres</h4></div>
                     </div>
-                    <div class="filter-btn" onclick="openClassModal()">
-                        <span id="filter-btn-text">UTBK - Literasi</span> <i class="fas fa-chevron-down"></i>
+                    <div class="stat" onclick="showComingSoon()">
+                        <div class="s-ic orange"><i class="fas fa-dumbbell"></i></div>
+                        <div class="s-info"><span>Latihan</span><h4>Drill Soal</h4></div>
                     </div>
                 </div>
 
-                <div id="main-grid-menu" class="grid-menu"></div>
-
-                <div class="stats-container">
-                    <div class="stat-card" onclick="showComingSoon()">
-                        <div class="icon-circle blue"><i class="fas fa-chart-line"></i></div>
-                        <div><div class="lbl">Laporan</div><div class="val">Cek Progres</div></div>
-                    </div>
-                    <div class="stat-card" onclick="showComingSoon()">
-                        <div class="icon-circle orange"><i class="fas fa-dumbbell"></i></div>
-                        <div><div class="lbl">Latihan</div><div class="val">Drill Soal</div></div>
-                    </div>
-                </div>
-
-                <h3 class="sect-title">Pilihan Belajar</h3>
+                <div class="sect-title">Pilihan Belajar</div>
                 <div class="h-scroll">
-                    <div class="scroll-card" onclick="showComingSoon()"><i class="fas fa-tasks blue-t"></i><span>Tryout</span></div>
-                    <div class="scroll-card" onclick="switchTab('live')"><i class="fas fa-video orange-t"></i><span>Live</span></div>
-                    <div class="scroll-card"><i class="fas fa-layer-group purple-t"></i><span>Materi</span></div>
-                    <div class="scroll-card" onclick="showComingSoon()"><i class="fas fa-calendar-check green-t"></i><span>Habit</span></div>
+                    <div class="sc-item" onclick="showComingSoon()"><div class="m-icon"><i class="fas fa-tasks" style="color:#f43f5e"></i></div><div style="font-size:0.7rem; margin-top:5px; text-align:center; color:var(--text-sec); font-weight:600;">Tryout</div></div>
+                    <div class="sc-item" onclick="switchTab('live')"><div class="m-icon"><i class="fas fa-video" style="color:#f59e0b"></i></div><div style="font-size:0.7rem; margin-top:5px; text-align:center; color:var(--text-sec); font-weight:600;">Live</div></div>
+                    <div class="sc-item"><div class="m-icon"><i class="fas fa-layer-group" style="color:#8b5cf6"></i></div><div style="font-size:0.7rem; margin-top:5px; text-align:center; color:var(--text-sec); font-weight:600;">Materi</div></div>
+                    <div class="sc-item" onclick="showComingSoon()"><div class="m-icon"><i class="fas fa-calendar-check" style="color:#10b981"></i></div><div style="font-size:0.7rem; margin-top:5px; text-align:center; color:var(--text-sec); font-weight:600;">Habit</div></div>
                 </div>
 
-                <h3 class="sect-title" style="margin-top:20px;">Daily Read</h3>
-                <div class="article-grid">
-                    <div class="art-card" onclick="showComingSoon()">
-                        <div class="art-img" style="background:#cbd5e1;"></div>
-                        <div class="art-txt">Jurusan Sepi Peminat</div>
+                <div class="sect-title" style="margin-top:20px;">Daily Read</div>
+                <div class="h-scroll">
+                    <div class="scroll-card" onclick="showComingSoon()">
+                        <div class="sc-img"></div>
+                        <div class="sc-txt">Jurusan Sepi Peminat</div>
                     </div>
-                    <div class="art-card" onclick="showComingSoon()">
-                        <div class="art-img" style="background:#94a3b8;"></div>
-                        <div class="art-txt">Tips Lolos UTBK 2026</div>
+                    <div class="scroll-card" onclick="showComingSoon()">
+                        <div class="sc-img" style="background:#94a3b8"></div>
+                        <div class="sc-txt">Tips Lolos UTBK 2026</div>
                     </div>
                 </div>
-
-                <a href="https://chat.whatsapp.com/K3RgtvP1yeOHBebfFmKNn0" class="wa-float" target="_blank">
-                    <i class="fab fa-whatsapp"></i> Join Grup WA
-                </a>
                 
-                <div style="height: 100px;"></div>
+                <a href="https://chat.whatsapp.com/K3RgtvP1yeOHBebfFmKNn0" class="wa-float" target="_blank"><i class="fab fa-whatsapp"></i> Support</a>
+                <div style="height:100px;"></div>
             </div>
 
-            <div id="page-live" class="page-section">
-                
-                <div class="live-nav">
+            <div id="page-detail" class="page-view">
+                <div class="detail-hero">
+                    <button class="back-absolute" onclick="closeDetail()"><i class="fas fa-arrow-left"></i></button>
+                    <h2 class="hero-title">Pengetahuan Kuantitatif</h2>
+                    <p style="opacity:0.9; font-size:0.9rem;">Tes Potensi Skolastik (TPS)</p>
+                    <div class="progress-bar"><div class="progress-fill"></div></div>
+                    <div style="margin-top:10px; font-size:0.8rem; font-weight:700;">0% Selesai</div>
+                </div>
+
+                <div class="sect-title">Daftar Bab</div>
+                <div id="chapter-list"></div>
+                <div style="height:100px"></div>
+            </div>
+
+            <div id="page-live" class="page-view">
+                <div class="chip-scroll">
                     <div id="chip-kelas" class="chip active" onclick="switchSubMenu('kelas')">Kelas Online</div>
                     <div id="chip-tutor" class="chip" onclick="switchSubMenu('tutor')">Sesi Tutor</div>
                     <div id="chip-tryout" class="chip" onclick="switchSubMenu('tryout')">Tryout</div>
                 </div>
 
                 <div id="view-kelas">
-                    <div class="tabs-segmented">
-                        <div class="seg-item active" onclick="switchLiveTab('upcoming', this)">Jadwal</div>
-                        <div class="seg-item" onclick="switchLiveTab('history', this)">Riwayat</div>
+                    <div id="tab-upcoming" class="empty-state">
+                        <i class="far fa-calendar-check"></i>
+                        <h3>Jadwal Kosong</h3>
+                        <p>Belum ada kelas live.</p>
                     </div>
-
-                    <div id="tab-upcoming" style="margin-top:20px;">
-                        <div class="empty-state">
-                            <i class="far fa-calendar-check"></i>
-                            <h3>Jadwal Kosong</h3>
-                            <p>Belum ada kelas live saat ini.</p>
-                        </div>
-                    </div>
-
-                    <div id="tab-history" style="display: none; margin-top:20px;">
-                        <div class="date-filter">
-                            <i class="fas fa-filter"></i>
-                            <input type="date" id="liveDateInput" onchange="renderHistory()">
-                        </div>
-                        <div id="history-container" class="card-stack"></div>
+                    <div id="tab-history" style="display:none; padding: 0 24px;">
+                        <div id="history-container" class="card-list"></div>
                     </div>
                 </div>
 
-                <div id="view-tutor" style="display: none;">
-                    <h3 class="sect-title">Pilih Mata Pelajaran</h3>
-                    <div id="tutor-container" class="card-grid-responsive"></div>
+                <div id="view-tutor" style="display:none;">
+                    <div class="sect-title">Pilih Mapel Tutor</div>
+                    <div id="tutor-container" class="card-list"></div>
                 </div>
 
-                <div id="view-tryout" style="display: none;">
-                    <div class="tryout-card">
-                        <div>
-                            <h4>TO UTBK - SNBT 1</h4>
-                            <p>15 - 17 Jan 2026</p>
+                <div id="view-tryout" style="display:none; padding: 0 24px;">
+                    <div class="live-card">
+                        <div class="lc-head">
+                            <div class="lc-title">TO UTBK - SNBT 1</div>
+                            <div class="lc-tag">15 Jan</div>
                         </div>
-                        <button class="btn-primary" onclick="showComingSoon()">Daftar</button>
+                        <button class="btn-main" onclick="showComingSoon()">Daftar Sekarang</button>
                     </div>
                 </div>
-
-                <div style="height: 100px;"></div>
+                <div style="height:100px"></div>
             </div>
 
-            <div id="page-form" class="page-section">
-                <button class="back-btn" onclick="closeForm()"><i class="fas fa-arrow-left"></i> Kembali</button>
-                <div class="form-wrapper">
-                    <div class="form-head">
-                        <span class="badge">Setiap Hari</span>
-                        <h2 id="form-subject">Subject</h2>
-                        <p><i class="fas fa-chalkboard-teacher"></i> <span id="form-teacher">Name</span></p>
-                        <p><i class="far fa-clock"></i> <span id="form-time">Time</span></p>
+            <div id="page-form" class="page-view">
+                <div style="padding:20px 24px; background:var(--bg-card); display:flex; align-items:center; border-bottom:1px solid var(--border);">
+                    <button onclick="closeForm()" style="background:none; border:none; font-size:1.2rem; color:var(--text-main); cursor:pointer;"><i class="fas fa-arrow-left"></i></button>
+                    <h3 style="margin-left:15px; font-size:1.1rem; color:var(--text-main);">Form Diskusi</h3>
+                </div>
+                <div class="form-area">
+                    <div class="stat" style="margin-bottom:20px; box-shadow:none; border:1px solid var(--border);">
+                        <div class="s-ic blue"><i class="fas fa-chalkboard-teacher"></i></div>
+                        <div class="s-info"><span class="tc-label">Master Teacher</span><h4 class="tc-name" id="form-teacher">Name</h4></div>
                     </div>
-                    <div class="form-content">
-                        <label>Pertanyaan:</label>
-                        <textarea id="form-msg" placeholder="Tulis di sini..."></textarea>
-                        
-                        <div class="file-area" onclick="document.getElementById('file-up').click()">
-                            <i class="fas fa-paperclip"></i> <span id="file-name">Upload File</span>
-                            <input type="file" id="file-up" hidden onchange="updateFile()">
-                        </div>
-
-                        <button class="btn-block" onclick="sendWA()">Kirim WhatsApp</button>
+                    <div class="form-group">
+                        <label>Mata Pelajaran</label>
+                        <input type="text" id="form-subject" class="form-input" readonly>
                     </div>
+                    <div class="form-group">
+                        <label>Pertanyaan</label>
+                        <textarea id="form-msg" class="form-input" placeholder="Tulis pertanyaanmu..."></textarea>
+                    </div>
+                    <button class="btn-main" onclick="sendWA()">Kirim WhatsApp</button>
                 </div>
             </div>
 
-        </div> 
         </div>
 
-    <nav class="bottom-nav">
-        <div class="nav-btn active" onclick="switchTab('home')">
-            <i class="fas fa-home"></i><span>Home</span>
+        <div class="app-nav">
+            <div class="nav-btn active" onclick="switchTab('home')">
+                <i class="fas fa-home"></i><span>Home</span>
+            </div>
+            <div class="nav-btn" onclick="switchTab('live')">
+                <i class="fas fa-video"></i><span>Live</span>
+            </div>
+            <div class="nav-btn" onclick="showComingSoon()">
+                <i class="fas fa-user"></i><span>Profil</span>
+            </div>
         </div>
-        <div class="nav-btn" onclick="switchTab('live')">
-            <i class="fas fa-video"></i><span>Live</span>
-        </div>
-    </nav>
+
+    </div>
 
     <div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
-        <div class="modal-box" onclick="event.stopPropagation()">
-            <div id="modal-body"></div>
+        <div class="modal-sheet" onclick="event.stopPropagation()">
+            <div id="modal-content"></div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // --- DATA ---
+        let currentPackage = 'literasi'; 
+        let currentTeacherPhone = "";
+
+        const chapters = [
+            { title: "Informasi UTBK-SNBT 2026", type: "Video", icon: "fas fa-bullhorn" },
+            { title: "Strategi Pengetahuan Kuantitatif", type: "Video", icon: "fas fa-lightbulb" },
+            { title: "Bilangan", type: "Materi", icon: "fas fa-calculator" },
+            { title: "Aljabar dan Fungsi", type: "Materi", icon: "fas fa-superscript" },
+            { title: "Geometri", type: "Latihan", icon: "fas fa-shapes" }
+        ];
+
+        const tutors = [
+            { id: 1, subject: "Pengetahuan Kuantitatif", teacher: "Salman", phone: "6285890554900" },
+            { id: 2, subject: "Penalaran Matematika", teacher: "Salman", phone: "6285890554900" },
+            { id: 3, subject: "Penalaran Umum", teacher: "Pani", phone: "6285727250422" },
+            { id: 4, subject: "Literasi B. Indonesia", teacher: "Anin", phone: "6283897444106" },
+            { id: 5, subject: "Pemahaman Bacaan", teacher: "Anin", phone: "6283897444106" },
+            { id: 6, subject: "Pengetahuan Umum", teacher: "Anin", phone: "6283897444106" }
+        ];
+
+        const historyData = [
+            { title: "Fundamental MTK", teacher: "Salman", date: "11 Jan", link: "https://us06web.zoom.us/rec/share/N9_pHVWjpyltOfwJ8MAaWa45gprMEY6c41Pp0uNVatqWknnU8Fv02ADwVgeK2VMO.418nK7FQsPqLtXIY" },
+            { title: "Pengetahuan Umum", teacher: "Anin", date: "10 Jan", link: "#" },
+            { title: "Kuantitatif", teacher: "Salman", date: "07 Jan", link: "https://us06web.zoom.us/rec/share/cHiECTh2wrvmYBKNcg1cIcgDomVFkqwQkVV41MdJGeZo7ZwZsHhKvjXrfyG7iXGW.rDZq5dliQpJY-TWl" }
+        ];
+
+        // --- INIT ---
+        window.addEventListener('load', () => {
+            // Theme Check
+            if(localStorage.getItem('theme') === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.querySelector('.theme-btn i').classList.replace('fa-moon', 'fa-sun');
+            }
+
+            // Package Check
+            const savedPkg = localStorage.getItem('daily_study_package');
+            if(savedPkg) { currentPackage = savedPkg; updateHeaderPkg(savedPkg); }
+
+            // Render All
+            renderMenu();
+            renderTutors();
+            renderHistory();
+            renderChapters();
+
+            // Splash Gone
+            setTimeout(() => {
+                document.getElementById('splash-screen').style.opacity = '0';
+                setTimeout(() => document.getElementById('splash-screen').style.display = 'none', 500);
+            }, 1000);
+        });
+
+        // --- RENDERERS ---
+        function renderMenu() {
+            const container = document.getElementById('grid-menu');
+            let items = [];
+            if(currentPackage === 'skolastik') {
+                items = [
+                    { icon: 'brain', color: '#6366f1', label: 'Pen. Umum' },
+                    { icon: 'lightbulb', color: '#14b8a6', label: 'Peng. Umum' },
+                    { icon: 'calculator', color: 'var(--primary)', label: 'Kuantitatif', action: "openDetail()" }, 
+                    { icon: 'th-large', color: 'var(--text-sec)', label: 'Semua', action: 'openAllSubjects()' }
+                ];
+            } else {
+                items = [
+                    { icon: 'book-open', color: 'var(--primary)', label: 'Lit. Indo' },
+                    { icon: 'language', color: '#6366f1', label: 'Lit. Ing' },
+                    { icon: 'chart-pie', color: '#14b8a6', label: 'Penalaran' },
+                    { icon: 'th-large', color: 'var(--text-sec)', label: 'Semua', action: 'openAllSubjects()' }
+                ];
+            }
+            container.innerHTML = items.map(i => `
+                <div class="menu-item" onclick="${i.action ? i.action : 'showComingSoon()'}">
+                    <div class="m-icon" style="color:${i.color}"><i class="fas fa-${i.icon}"></i></div>
+                    <div class="m-text">${i.label}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderTutors() {
+            document.getElementById('tutor-container').innerHTML = tutors.map(t => `
+                <div class="live-card">
+                    <div class="lc-head">
+                        <div class="lc-title">${t.subject}</div>
+                        <div class="lc-tag">Setiap Hari</div>
+                    </div>
+                    <div class="lc-row"><i class="far fa-clock"></i> 07:00 - 20:45</div>
+                    <div class="lc-row"><i class="fas fa-chalkboard-teacher"></i> ${t.teacher}</div>
+                    <button class="btn-main" onclick="${t.id === 1 ? "openDetail()" : "openForm('" + t.subject + "', '" + t.teacher + "', '" + t.phone + "')"}">
+                        ${t.id === 1 ? 'Lihat Materi' : 'Pesan Sesi'}
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function renderHistory() {
+            document.getElementById('history-container').innerHTML = historyData.map(h => `
+                <div class="live-card">
+                    <div class="lc-head">
+                        <div class="lc-title">${h.title}</div>
+                        <div class="lc-tag" style="background:#dcfce7; color:#16a34a">Selesai</div>
+                    </div>
+                    <div class="lc-row"><i class="far fa-calendar"></i> ${h.date}</div>
+                    <div class="lc-row"><i class="fas fa-user"></i> ${h.teacher}</div>
+                    <a href="${h.link}" target="_blank" style="text-decoration:none;"><button class="btn-outline">Tonton Ulang</button></a>
+                </div>
+            `).join('');
+        }
+
+        function renderChapters() {
+            document.getElementById('chapter-list').innerHTML = chapters.map(c => `
+                <div class="chapter-item">
+                    <div class="ch-icon"><i class="${c.icon}"></i></div>
+                    <div class="ch-info">
+                        <div class="ch-title">${c.title}</div>
+                        <div class="ch-meta"><span class="badge">ADAPTO</span> ${c.type}</div>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color:var(--text-sec); font-size:0.8rem;"></i>
+                </div>
+            `).join('');
+        }
+
+        // --- NAVIGATION ---
+        function switchTab(pageId) {
+            document.querySelectorAll('.page-view').forEach(e => e.classList.remove('active'));
+            document.querySelectorAll('.header-inner').forEach(e => e.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(e => e.classList.remove('active'));
+
+            document.getElementById('page-' + pageId).classList.add('active');
+            
+            if(pageId === 'home') {
+                document.getElementById('head-home').classList.add('active');
+                document.querySelectorAll('.nav-btn')[0].classList.add('active');
+            } else if (pageId === 'live') {
+                document.getElementById('head-live').classList.add('active');
+                document.querySelectorAll('.nav-btn')[1].classList.add('active');
+            }
+        }
+
+        function switchSubMenu(viewId) {
+            document.querySelectorAll('.chip').forEach(e => e.classList.remove('active'));
+            document.getElementById('chip-' + viewId).classList.add('active');
+            
+            ['kelas', 'tutor', 'tryout'].forEach(id => document.getElementById('view-' + id).style.display = 'none');
+            document.getElementById('view-' + viewId).style.display = 'block';
+
+            // Show Tabs only for Kelas
+            document.querySelector('.live-tabs').style.display = viewId === 'kelas' ? 'flex' : 'none';
+        }
+
+        function switchLiveTab(tabId, el) {
+            document.querySelectorAll('.tab').forEach(e => e.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById('tab-upcoming').style.display = tabId === 'upcoming' ? 'block' : 'none';
+            document.getElementById('tab-history').style.display = tabId === 'history' ? 'block' : 'none';
+        }
+
+        // --- ACTIONS ---
+        function openDetail() {
+            document.querySelector('.app-header').style.display = 'none';
+            document.querySelectorAll('.page-view').forEach(e => e.classList.remove('active'));
+            document.getElementById('page-detail').classList.add('active');
+        }
+
+        function closeDetail() {
+            document.getElementById('page-detail').classList.remove('active');
+            document.querySelector('.app-header').style.display = 'block';
+            switchTab('home');
+        }
+
+        function openForm(sub, teach, phone) {
+            document.querySelector('.app-header').style.display = 'none';
+            document.querySelectorAll('.page-view').forEach(e => e.classList.remove('active'));
+            document.getElementById('page-form').classList.add('active');
+            document.getElementById('form-subject').value = sub;
+            document.getElementById('form-teacher').innerText = teach;
+            currentTeacherPhone = phone;
+        }
+
+        function closeForm() {
+            document.getElementById('page-form').classList.remove('active');
+            document.querySelector('.app-header').style.display = 'block';
+            switchTab('live');
+        }
+
+        function toggleTheme() {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            const newTheme = isDark ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            document.querySelector('.theme-btn i').className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        function sendWA() {
+            const msg = document.getElementById('tutor-msg').value;
+            window.open(`https://wa.me/${currentTeacherPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // --- MODALS ---
+        function showComingSoon() {
+            const m = document.getElementById('modal-overlay');
+            m.classList.add('active');
+            document.getElementById('modal-content').innerHTML = `
+                <div style="text-align:center">
+                    <i class="fas fa-rocket" style="font-size:3rem; color:var(--primary); margin-bottom:15px;"></i>
+                    <h3 style="color:var(--text-main)">Coming Soon!</h3>
+                    <button class="btn-main" onclick="closeModal()">Oke</button>
+                </div>
+            `;
+        }
+
+        function openClassModal() {
+            const m = document.getElementById('modal-overlay');
+            m.classList.add('active');
+            document.getElementById('modal-content').innerHTML = `
+                <h3 style="text-align:center; margin-bottom:20px; color:var(--text-main);">Pilih Paket</h3>
+                <div class="modal-opt ${currentPackage==='literasi'?'active':''}" onclick="setPkg('literasi')">Tes Literasi</div>
+                <div class="modal-opt ${currentPackage==='skolastik'?'active':''}" onclick="setPkg('skolastik')">Tes Potensi Skolastik</div>
+            `;
+        }
+
+        function openAllSubjects() {
+            const m = document.getElementById('modal-overlay');
+            m.classList.add('active');
+            document.getElementById('modal-content').innerHTML = `
+                <h3 style="text-align:center; margin-bottom:20px; color:var(--text-main);">Semua Pelajaran</h3>
+                <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px;">
+                    ${getAllIcons()}
+                </div>
+                <button class="btn-main" style="margin-top:20px; background:var(--bg-body); color:var(--text-main);" onclick="closeModal()">Tutup</button>
+            `;
+        }
+
+        function getAllIcons() {
+            return [
+                {c:'var(--primary)', i:'book-open', l:'Indo'}, {c:'#6366f1', i:'language', l:'Inggris'},
+                {c:'#14b8a6', i:'chart-pie', l:'Penalaran'}, {c:'#6366f1', i:'brain', l:'Pen.Umum'},
+                {c:'#14b8a6', i:'lightbulb', l:'Peng.Umum'}, {c:'var(--primary)', i:'book', l:'PBM'},
+                {c:'var(--text-sec)', i:'calculator', l:'Kuantitatif'}
+            ].map(x => `<div style="text-align:center"><div style="width:50px; height:50px; background:var(--bg-app); border-radius:16px; display:flex; justify-content:center; align-items:center; margin:0 auto 5px; color:${x.c}; font-size:1.3rem; border:1px solid var(--border);"><i class="fas fa-${x.i}"></i></div><div style="font-size:0.7rem; font-weight:600; color:var(--text-sec);">${x.l}</div></div>`).join('');
+        }
+
+        function setPkg(pkg) {
+            currentPackage = pkg;
+            localStorage.setItem('daily_study_package', pkg);
+            updateHeaderPkg(pkg);
+            renderMenu();
+            closeModal();
+        }
+
+        function updateHeaderPkg(pkg) {
+            document.getElementById('pkg-text').innerText = pkg === 'literasi' ? 'UTBK - Literasi' : 'UTBK - Potensi';
+        }
+
+        function closeModal() { document.getElementById('modal-overlay').classList.remove('active'); }
+        function updateFile() { alert("File dipilih!"); }
+    </script>
 </body>
 </html>
