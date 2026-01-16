@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Daily Study</title>
+    <title>Daily Study Premium Fixed</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
@@ -20,6 +20,8 @@
             --border: #e2e8f0;
             --max-w: 480px;
             --shadow: 0 4px 20px -5px rgba(99, 102, 241, 0.15);
+            --correct: #22c55e;
+            --wrong: #ef4444;
         }
 
         [data-theme="dark"] {
@@ -35,23 +37,22 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; outline: none; }
 
-        body { background: var(--bg-body); height: 100vh; width: 100%; display: flex; justify-content: center; overflow: hidden; }
+        body { 
+            background: var(--bg-body); 
+            color: var(--text-main); 
+            height: 100vh; width: 100%; 
+            display: flex; justify-content: center; 
+            overflow: hidden; 
+        }
+
         .app-container { width: 100%; max-width: var(--max-w); background: var(--bg-app); height: 100%; display: flex; flex-direction: column; position: relative; box-shadow: 0 0 50px rgba(0,0,0,0.2); }
 
         /* HEADER & NAV */
         .app-header { flex-shrink: 0; z-index: 50; background: var(--bg-card); border-bottom: 1px solid var(--border); transition: 0.3s; }
         
-        /* 🔥 FIX NAV BAR: Posisi dinaikkan agar tidak mepet bawah 🔥 */
         .app-nav { 
-            flex-shrink: 0; 
-            height: 95px; /* Tinggi ditambah */
-            background: var(--bg-card); 
-            border-top: 1px solid var(--border); 
-            display: flex; 
-            justify-content: space-around; 
-            align-items: center; 
-            z-index: 50; 
-            padding-bottom: 30px; /* Padding bawah ditambah agar tombol naik */
+            flex-shrink: 0; height: 90px; background: var(--bg-card); border-top: 1px solid var(--border); 
+            display: flex; justify-content: space-around; align-items: center; z-index: 50; padding-bottom: 25px; 
         }
 
         /* CONTENT */
@@ -88,13 +89,11 @@
         .scroll-card { min-width: 260px; background: var(--bg-card); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; cursor: pointer; margin-bottom: 5px; }
         .sc-img { height: 110px; background: #cbd5e1; } .sc-txt { padding: 12px; font-weight: 700; color: var(--text-main); font-size: 0.9rem; }
 
-        /* DETAIL PAGE */
+        /* DETAIL HERO & LIST */
         .detail-hero { padding: 30px 24px; background: linear-gradient(135deg, #6366f1, #4f46e5); color: white; border-radius: 0 0 30px 30px; margin-bottom: 20px; position: relative; }
         .back-absolute { position: absolute; top: 20px; left: 20px; color: white; background: rgba(255,255,255,0.2); width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; border: none; font-size: 1.1rem; }
         .hero-title { margin-top: 40px; font-size: 1.6rem; font-weight: 800; line-height: 1.2; margin-bottom: 5px; }
-        .progress-bar { height: 6px; background: rgba(255,255,255,0.3); border-radius: 10px; margin-top: 15px; overflow: hidden; }
-        .progress-fill { height: 100%; width: 0%; background: #4ade80; }
-
+        
         .chapter-item { background: var(--bg-card); margin: 0 24px 12px; padding: 16px; border-radius: 16px; border: 1px solid var(--border); display: flex; align-items: center; gap: 15px; cursor: pointer; }
         .ch-icon { width: 45px; height: 45px; background: var(--primary-soft); color: var(--primary); border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 1.2rem; flex-shrink: 0; }
         .ch-info h4 { margin: 0 0 4px; font-size: 0.95rem; color: var(--text-main); font-weight: 700; }
@@ -108,7 +107,8 @@
         .lc-tag { background: var(--primary-soft); color: var(--primary); padding: 4px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 700; }
         .lc-row { display: flex; align-items: center; gap: 10px; color: var(--text-sec); font-size: 0.85rem; margin-bottom: 8px; }
         .btn-main { width: 100%; background: var(--primary); color: white; padding: 12px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; margin-top: 10px; }
-        
+        .btn-outline { width: 100%; background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 10px; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+
         .live-tabs { display: flex; background: var(--bg-app); padding: 5px; border-radius: 12px; margin-top: 10px; border: 1px solid var(--border); }
         .tab { flex: 1; text-align: center; padding: 8px; font-size: 0.85rem; font-weight: 700; color: var(--text-sec); border-radius: 8px; cursor: pointer; transition: 0.2s; }
         .tab.active { background: var(--bg-card); color: var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
@@ -130,7 +130,6 @@
         .modal-overlay.active { display: flex; }
         .modal-sheet { background: var(--bg-card); width: 100%; max-width: 480px; border-radius: 30px 30px 0 0; padding: 30px 24px; animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-        
         .pkg-option { width: 100%; padding: 16px; margin-bottom: 12px; background: var(--bg-card); border: 2px solid var(--border); border-radius: 16px; font-weight: 700; color: var(--text-sec); text-align: center; cursor: pointer; transition: 0.2s; display: block; }
         .pkg-option.active { border-color: var(--primary); background: var(--primary-soft); color: var(--primary); box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2); }
 
@@ -144,6 +143,38 @@
         .form-group label { display: block; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
         .form-input { width: 100%; padding: 14px; border: 1px solid var(--border); background: var(--bg-app); border-radius: 12px; color: var(--text-main); outline: none; }
         textarea.form-input { height: 120px; resize: none; }
+
+        /* --- QUIZ & SELECTION STYLES --- */
+        .select-list { padding: 0 24px; display: grid; grid-template-columns: 1fr; gap: 10px; }
+        .select-item { padding: 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; display: flex; align-items: center; gap: 15px; cursor: pointer; color: var(--text-main); }
+        .select-item:active { background: var(--primary-soft); border-color: var(--primary); }
+        
+        .timer-float { position: sticky; top: 0; background: var(--primary); color: white; padding: 10px; text-align: center; font-weight: 800; z-index: 40; margin: -20px -24px 20px; border-radius: 0 0 20px 20px; box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3); }
+        
+        /* FIX COLOR CONTRAST BENAR/SALAH */
+        .quiz-opt { padding: 15px; border: 2px solid var(--border); border-radius: 16px; margin-bottom: 10px; cursor: pointer; font-weight: 600; color: var(--text-main); background: var(--bg-card); }
+        .quiz-opt.correct { border-color: #22c55e; background: #86efac; color: #064e3b; }
+        .quiz-opt.wrong { border-color: #ef4444; background: #fca5a5; color: #7f1d1d; }
+        
+        .explanation { background: var(--bg-app); padding: 15px; border-radius: 12px; margin-top: 15px; font-size: 0.9rem; color: var(--text-main); display: none; border: 1px solid var(--border); }
+        
+        .habit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .habit-check { position: relative; }
+        .habit-check input { position: absolute; opacity: 0; }
+        .habit-box { padding: 15px; border: 2px solid var(--border); border-radius: 16px; text-align: center; font-weight: 700; color: var(--text-sec); cursor: pointer; transition: 0.2s; background: var(--bg-card); }
+        .habit-check input:checked + .habit-box { border-color: var(--primary); background: var(--primary-soft); color: var(--primary); }
+
+        .video-card { background: var(--bg-card); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 15px; display: block; text-decoration: none; color: inherit; }
+        .video-thumb { width: 100%; height: 180px; object-fit: cover; background: #eee; }
+        .video-info { padding: 16px; }
+        .video-title { font-weight: 700; margin-bottom: 5px; font-size: 0.95rem; line-height: 1.4; }
+        .video-meta { font-size: 0.8rem; color: var(--text-sec); display: flex; align-items: center; gap: 5px; }
+        
+        .pagination { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+        .page-btn { width: 40px; height: 40px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg-card); display: flex; justify-content: center; align-items: center; font-weight: 700; cursor: pointer; color: var(--text-main); }
+        .page-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .timer-toggle { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -178,6 +209,10 @@
                     <div class="tab" onclick="switchLiveTab('history', this)">Riwayat</div>
                 </div>
             </div>
+
+            <div id="head-laporan" class="header-inner">
+                <div style="text-align:center; font-weight:800; font-size:1.2rem; color:var(--text-main);">Laporan Belajar</div>
+            </div>
         </div>
 
         <div class="app-content">
@@ -190,11 +225,11 @@
                 <div id="menu-container" class="menu-grid"></div>
 
                 <div class="stats-box">
-                    <div class="stat" onclick="showComingSoon()">
+                    <div class="stat" onclick="openReport()">
                         <div class="s-ic blue"><i class="fas fa-chart-pie"></i></div>
                         <div class="s-info"><span>Laporan</span><h4>Cek Progres</h4></div>
                     </div>
-                    <div class="stat" onclick="showComingSoon()">
+                    <div class="stat" onclick="openDrillMenu()">
                         <div class="s-ic orange"><i class="fas fa-dumbbell"></i></div>
                         <div class="s-info"><span>Latihan</span><h4>Drill Soal</h4></div>
                     </div>
@@ -204,8 +239,8 @@
                 <div class="h-scroll">
                     <div class="sc-item" onclick="showComingSoon()"><div class="m-icon"><i class="fas fa-tasks" style="color:#f43f5e"></i></div><div style="font-size:0.7rem; margin-top:5px; text-align:center; color:var(--text-sec); font-weight:600;">Tryout</div></div>
                     <div class="sc-item" onclick="switchTab('live')"><div class="m-icon"><i class="fas fa-video" style="color:#f59e0b"></i></div><div style="font-size:0.7rem; margin-top:5px; text-align:center; color:var(--text-sec); font-weight:600;">Live</div></div>
-                    <div class="sc-item"><div class="m-icon"><i class="fas fa-layer-group" style="color:#8b5cf6"></i></div><div style="font-size:0.7rem; margin-top:5px; text-align:center; color:var(--text-sec); font-weight:600;">Materi</div></div>
-                    <div class="sc-item" onclick="showComingSoon()"><div class="m-icon"><i class="fas fa-calendar-check" style="color:#10b981"></i></div><div style="font-size:0.7rem; margin-top:5px; text-align:center; color:var(--text-sec); font-weight:600;">Habit</div></div>
+                    <div class="sc-item" onclick="openDetail('Fundamental')"><div class="m-icon"><i class="fas fa-layer-group" style="color:#8b5cf6"></i></div><div style="font-size:0.7rem; margin-top:5px; text-align:center; color:var(--text-sec); font-weight:600;">Fundamental</div></div>
+                    <div class="sc-item" onclick="openHabitMenu()"><div class="m-icon"><i class="fas fa-calendar-check" style="color:#10b981"></i></div><div style="font-size:0.7rem; margin-top:5px; text-align:center; color:var(--text-sec); font-weight:600;">Habit</div></div>
                 </div>
 
                 <div class="sect-title" style="margin-top:20px;">Daily Read</div>
@@ -226,15 +261,25 @@
             <div id="page-detail" class="page-view">
                 <div class="detail-hero">
                     <button class="back-absolute" onclick="closeDetail()"><i class="fas fa-arrow-left"></i></button>
-                    <h2 class="hero-title">Pengetahuan Kuantitatif</h2>
-                    <p style="opacity:0.9; font-size:0.9rem;">Tes Potensi Skolastik (TPS)</p>
-                    <div class="progress-bar"><div class="progress-fill"></div></div>
-                    <div style="margin-top:10px; font-size:0.8rem; font-weight:700;">0% Selesai</div>
+                    <h2 class="hero-title" id="detail-title">Mata Pelajaran</h2>
+                    <p style="opacity:0.9; font-size:0.9rem;">Materi & Pembahasan</p>
                 </div>
-
                 <div class="sect-title">Daftar Bab</div>
-                <div id="chapter-list"></div>
-                <div style="height:100px"></div>
+                <div class="chapter-list" id="chapter-list"></div>
+                <div style="height:100px;"></div>
+            </div>
+
+            <div id="page-video-list" class="page-view">
+                <div class="detail-hero">
+                    <button class="back-absolute" onclick="backToDetail()"><i class="fas fa-arrow-left"></i></button>
+                    <h2 class="hero-title">Video Pembahasan</h2>
+                    <p style="opacity:0.9; font-size:0.9rem;" id="video-subject-title">Mata Pelajaran</p>
+                </div>
+                <div style="padding: 24px;">
+                    <div id="video-container"></div>
+                    <div id="pagination-controls" class="pagination"></div>
+                </div>
+                <div style="height:100px;"></div>
             </div>
 
             <div id="page-live" class="page-view">
@@ -243,103 +288,170 @@
                     <div id="chip-tutor" class="chip" onclick="switchSub('tutor')">Sesi Tutor</div>
                     <div id="chip-tryout" class="chip" onclick="switchSub('tryout')">Tryout</div>
                 </div>
-
                 <div id="view-kelas">
-                    <div id="tab-upcoming" class="empty-state">
-                        <i class="far fa-calendar-check"></i>
-                        <h3>Jadwal Kosong</h3>
-                        <p>Belum ada kelas live.</p>
-                    </div>
-                    <div id="tab-history" style="display:none; padding: 0 24px;">
-                        <div id="history-container" class="card-list"></div>
-                    </div>
+                    <div id="tab-upcoming" class="empty-state"><i class="far fa-calendar-check"></i><h3>Jadwal Kosong</h3><p>Belum ada kelas live.</p></div>
+                    <div id="tab-history" style="display:none; padding: 0 24px;"><div id="history-container" class="card-list"></div></div>
                 </div>
-
-                <div id="view-tutor" style="display:none; padding: 0 24px;">
-                    <div class="sect-title" style="padding-left:0;">Pilih Mapel Tutor</div>
-                    <div id="tutor-list"></div>
-                </div>
-
-                <div id="view-tryout" style="display:none; padding: 0 24px;">
-                    <div class="live-card">
-                        <div class="lc-head">
-                            <div class="lc-title">TO UTBK 1</div>
-                            <div class="lc-tag">15 Jan</div>
-                        </div>
-                        <button class="btn-main" onclick="showComingSoon()">Daftar Sekarang</button>
-                    </div>
-                </div>
-                <div style="height:100px"></div>
+                <div id="view-tutor" style="display:none; padding: 0 24px;"><div class="sect-title" style="padding-left:0;">Pilih Mapel Tutor</div><div id="tutor-list"></div></div>
+                <div id="view-tryout" style="display:none; padding: 0 24px;"><div class="live-card"><div class="lc-head"><div class="lc-title">TO UTBK 1</div><div class="lc-tag">15 Jan</div></div><button class="btn-main" onclick="showComingSoon()">Daftar Sekarang</button></div></div>
+                <div style="height:100px;"></div>
             </div>
 
             <div id="page-form" class="page-view">
-                <div style="padding:20px 24px; background:var(--bg-card); display:flex; align-items:center; border-bottom:1px solid var(--border);">
-                    <button onclick="closeForm()" style="background:none; border:none; font-size:1.2rem; color:var(--text-main); cursor:pointer;"><i class="fas fa-arrow-left"></i></button>
-                    <h3 style="margin-left:15px; font-size:1.1rem; color:var(--text-main);">Form Diskusi</h3>
+                <div style="padding:20px 24px; background:var(--bg-card); border-bottom:1px solid var(--border); display:flex; align-items:center;">
+                    <button onclick="closeForm()" style="background:none; border:none; font-size:1.2rem; color:var(--text-main);"><i class="fas fa-arrow-left"></i></button>
+                    <h3 style="margin-left:15px; color:var(--text-main);">Form Diskusi</h3>
                 </div>
                 <div class="form-area">
-                    <div class="stat" style="margin-bottom:20px; box-shadow:none; border:1px solid var(--border);">
-                        <div class="s-ic blue"><i class="fas fa-chalkboard-teacher"></i></div>
-                        <div class="s-info"><span class="tc-label" style="font-size:0.7rem; color:var(--text-sec)">Master Teacher</span><h4 class="tc-name" id="form-teacher" style="font-size:1rem; color:var(--text-main); margin:0;">Name</h4></div>
-                    </div>
-                    <div class="form-group">
-                        <label>Mata Pelajaran</label>
-                        <input type="text" id="form-subject" class="form-input" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>Pertanyaan</label>
-                        <textarea id="form-msg" class="form-input" placeholder="Tulis pertanyaanmu..."></textarea>
-                    </div>
+                    <div class="form-group"><label>Mata Pelajaran</label><input type="text" id="form-subject" class="form-input" readonly></div>
+                    <div class="form-group"><label>Pertanyaan</label><textarea id="form-msg" class="form-input" placeholder="Tulis pertanyaanmu..."></textarea></div>
+                    <div style="display:none" id="form-teacher"></div>
                     <button class="btn-main" onclick="sendWA()">Kirim WhatsApp</button>
+                </div>
+            </div>
+
+            <div id="page-laporan" class="page-view">
+                <div class="detail-hero" style="border-radius:0 0 30px 30px;">
+                    <button class="back-absolute" onclick="switchTab('home')"><i class="fas fa-arrow-left"></i></button>
+                    <h2 class="hero-title">Laporan Belajar</h2>
+                    <p style="opacity:0.9;">Riwayat pengerjaan Drill & Habit</p>
+                </div>
+                <div id="laporan-list" class="card-list" style="margin-top:20px;"></div>
+                <div style="height:100px;"></div>
+            </div>
+
+            <div id="page-quiz" class="page-view" style="padding:24px;">
+                <div class="timer-float" id="quiz-timer">00:00</div>
+                <div style="margin-bottom:15px; font-weight:700; color:var(--text-sec)">Soal <span id="q-curr">1</span>/<span id="q-total">1</span></div>
+                <h3 id="q-text" style="margin-bottom:20px; color:var(--text-main);">Pertanyaan</h3>
+                <div id="q-options"></div>
+                <div id="q-explain" class="explanation"></div>
+                <button id="btn-next" class="btn-main" style="display:none; margin-top:20px;" onclick="nextQuestion()">Lanjut</button>
+            </div>
+
+            <div id="page-result" class="page-view" style="padding:40px 24px; text-align:center;">
+                <i class="fas fa-medal" style="font-size:4rem; color:#f59e0b; margin-bottom:20px;"></i>
+                <h2 style="color:var(--text-main);">Selesai!</h2>
+                <p style="color:var(--text-sec);">Nilai kamu berhasil disimpan.</p>
+                <div style="font-size:3.5rem; font-weight:800; color:var(--primary); margin:30px 0;" id="final-score">100</div>
+                <button class="btn-main" onclick="switchTab('laporan')">Lihat Laporan</button>
+                <button class="btn-outline" onclick="switchTab('home')">Kembali ke Home</button>
+            </div>
+
+            <div id="page-habit-setup" class="page-view">
+                <div class="detail-hero">
+                    <button class="back-absolute" onclick="switchTab('home')"><i class="fas fa-arrow-left"></i></button>
+                    <h2 class="hero-title">Habit Builder</h2>
+                    <p>Latihan Rutin</p>
+                </div>
+                <div style="padding:24px">
+                    <div class="form-group">
+                        <label>Pilih Pelajaran (Bisa Lebih dari 1)</label>
+                        <div class="habit-grid" id="habit-subjects">
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="timer-toggle">
+                            <input type="checkbox" id="h-no-timer" onchange="toggleTimer('h')">
+                            <label for="h-no-timer" style="font-weight:700; cursor:pointer;">Mode Santai (Tanpa Waktu)</label>
+                        </div>
+                        <div id="h-timer-container">
+                            <label>Waktu (Menit): <span id="h-time-val">30</span></label>
+                            <input type="range" min="1" max="60" value="30" style="width:100%" oninput="document.getElementById('h-time-val').innerText=this.value" id="h-time">
+                        </div>
+                    </div>
+                    <div class="form-group"><label>Jumlah Soal: <span id="hb-q">10</span></label><input type="range" min="1" max="50" value="10" style="width:100%" oninput="document.getElementById('hb-q').innerText=this.value" id="h-count"></div>
+                    <button class="btn-main" onclick="startHabit()">Mulai Latihan</button>
+                </div>
+            </div>
+
+            <div id="page-drill-setup" class="page-view">
+                <div class="detail-hero">
+                    <button class="back-absolute" onclick="switchTab('home')"><i class="fas fa-arrow-left"></i></button>
+                    <h2 class="hero-title">Drill Soal</h2>
+                    <p>Latihan Intensif</p>
+                </div>
+                <div style="padding:24px">
+                    <div class="form-group">
+                        <label>Pilih Pelajaran (Bisa Lebih dari 1)</label>
+                        <div class="habit-grid" id="drill-subjects">
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="timer-toggle">
+                            <input type="checkbox" id="d-no-timer" onchange="toggleTimer('d')">
+                            <label for="d-no-timer" style="font-weight:700; cursor:pointer;">Mode Santai (Tanpa Waktu)</label>
+                        </div>
+                        <div id="d-timer-container">
+                            <label>Waktu (Menit): <span id="d-time-val">30</span></label>
+                            <input type="range" min="1" max="60" value="30" style="width:100%" oninput="document.getElementById('d-time-val').innerText=this.value" id="d-time">
+                        </div>
+                    </div>
+                    <div class="form-group"><label>Jumlah Soal: <span id="db-q">10</span></label><input type="range" min="1" max="50" value="10" style="width:100%" oninput="document.getElementById('db-q').innerText=this.value" id="d-count"></div>
+                    <button class="btn-main" onclick="startDrill()">Mulai Drill</button>
                 </div>
             </div>
 
         </div>
 
         <div class="app-nav">
-            <div class="nav-btn active" onclick="switchTab('home')">
-                <i class="fas fa-home"></i><span>Home</span>
-            </div>
-            <div class="nav-btn" onclick="switchTab('live')">
-                <i class="fas fa-video"></i><span>Live</span>
-            </div>
-            <div class="nav-btn" onclick="showComingSoon()">
-                <i class="fas fa-user"></i><span>Profil</span>
-            </div>
+            <div class="nav-btn active" onclick="switchTab('home')"><i class="fas fa-home"></i><span>Home</span></div>
+            <div class="nav-btn" onclick="switchTab('live')"><i class="fas fa-video"></i><span>Live</span></div>
+            <div class="nav-btn" onclick="showComingSoon()"><i class="fas fa-user"></i><span>Profil</span></div>
         </div>
 
     </div>
 
     <div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
-        <div class="modal-sheet" onclick="event.stopPropagation()">
-            <div id="modal-content"></div>
-        </div>
+        <div class="modal-sheet" onclick="event.stopPropagation()"><div id="modal-content"></div></div>
     </div>
 
     <script>
         let currentPackage = 'literasi'; 
         let currentTeacherPhone = "";
+        let quizState = { active: false, score: 0, current: 0, questions: [], type: '', subject: '', timerMode: 'timed', timeLeft: 0, timerId: null };
+        let historyStore = JSON.parse(localStorage.getItem('user_history')) || [];
 
-        // 🔥 DATA CHAPTERS DIPERBAIKI: "Latihan" -> "Video Materi" 🔥
-        const chapters = [
-            { title: "Bilangan", type: "Video Materi", icon: "calculator" },
-            { title: "Aljabar dan Fungsi", type: "Materi", icon: "superscript" },
-            { title: "Geometri", type: "Video Materi", icon: "shapes" }
-        ];
+        // DATA
+        const videoDB = {
+            'Penalaran Umum': [
+                { t: "CARA CEPAT SOAL PENALARAN UMUM UTBK SNBT 2026", c: "Pak Franzz", i: "https://img.youtube.com/vi/qkDdvMExaTo/hqdefault.jpg", u: "https://youtu.be/qkDdvMExaTo?si=vtsNOWRhW7ZyaGIu" },
+                { t: "Tips & Trik Penalaran Umum - Bagian 1", c: "Daily Study", i: "https://via.placeholder.com/480x270?text=Video+2", u: "#" },
+                { t: "Latihan Soal Logika Matematika", c: "Math Master", i: "https://via.placeholder.com/480x270?text=Video+3", u: "#" },
+                { t: "Pembahasan TO 1: Penalaran Umum", c: "Daily Study", i: "https://via.placeholder.com/480x270?text=Video+4", u: "#" },
+                { t: "Strategi Mengerjakan Soal Cerita", c: "Kak Budi", i: "https://via.placeholder.com/480x270?text=Video+5", u: "#" },
+                { t: "Bedah Soal UTBK 2025", c: "Pejuang PTN", i: "https://via.placeholder.com/480x270?text=Video+6", u: "#" },
+                { t: "Review Materi Logika", c: "Daily Study", i: "https://via.placeholder.com/480x270?text=Video+7", u: "#" }
+            ],
+            'default': [
+                { t: "Video Pembahasan Soal 1", c: "Daily Study", i: "https://via.placeholder.com/480x270?text=Video+Materi", u: "#" },
+                { t: "Video Pembahasan Soal 2", c: "Daily Study", i: "https://via.placeholder.com/480x270?text=Video+Materi", u: "#" }
+            ]
+        };
 
         const tutors = [
             { id: 1, subject: "Pengetahuan Kuantitatif", teacher: "Salman", phone: "6285890554900" },
             { id: 2, subject: "Penalaran Matematika", teacher: "Salman", phone: "6285890554900" },
             { id: 3, subject: "Penalaran Umum", teacher: "Pani", phone: "6285727250422" },
             { id: 4, subject: "Literasi B. Indonesia", teacher: "Anin", phone: "6283897444106" },
-            { id: 5, subject: "Pemahaman Bacaan", teacher: "Anin", phone: "6283897444106" },
+            { id: 5, subject: "PBM", teacher: "Anin", phone: "6283897444106" }, 
             { id: 6, subject: "Pengetahuan Umum", teacher: "Anin", phone: "6283897444106" }
         ];
 
         const historyData = [
+            { title: "Pengetahuan Kuantitatif", teacher: "Salman", date: "16 Jan", link: "https://us06web.zoom.us/rec/share/JCqqPJTtLrpdImuzpGbFtAIlX2SFWtcNqIhktbq-1i3zT0dsOeXOZ8LrzYG6Jbf1.H7ZSRN16YEBFoZje" },
             { title: "Fundamental MTK", teacher: "Salman", date: "11 Jan", link: "https://us06web.zoom.us/rec/share/N9_pHVWjpyltOfwJ8MAaWa45gprMEY6c41Pp0uNVatqWknnU8Fv02ADwVgeK2VMO.418nK7FQsPqLtXIY" },
             { title: "Pengetahuan Umum", teacher: "Anin", date: "10 Jan", link: "#" },
             { title: "Kuantitatif", teacher: "Salman", date: "07 Jan", link: "https://us06web.zoom.us/rec/share/cHiECTh2wrvmYBKNcg1cIcgDomVFkqwQkVV41MdJGeZo7ZwZsHhKvjXrfyG7iXGW.rDZq5dliQpJY-TWl" }
+        ];
+
+        const drillSubjectsList = ["Kuantitatif", "Penalaran Matematika", "Penalaran Umum", "Lit. B. Indonesia", "Lit. B. Inggris", "Pengetahuan Umum", "PBM"];
+        const habitSubjectsList = ["Fundamental", "Matematika", "English", "Bahasa Indonesia"];
+
+        const qBank = [
+            { q: "1 + 1 = ?", o: ["1", "2", "3"], a: 1, e: "Jelas 2." },
+            { q: "Ibu kota Indonesia?", o: ["Jakarta", "Bandung", "Solo"], a: 0, e: "Saat ini Jakarta." },
+            { q: "Berapa sisi segitiga?", o: ["3", "4", "5"], a: 0, e: "Segitiga punya 3 sisi." }
         ];
 
         window.onload = function() {
@@ -351,88 +463,20 @@
                 currentPackage = localStorage.getItem('daily_study_package');
                 updateHeaderPkg(currentPackage);
             }
-            
             renderMenu();
             renderTutors();
-            renderHistory();
-            renderChapters();
+            renderHistory(); 
+            renderLaporan();
+            
+            // Populate checkboxes
+            document.getElementById('drill-subjects').innerHTML = drillSubjectsList.map(s => `<label class="habit-check"><input type="checkbox" value="${s}"><div class="habit-box">${s}</div></label>`).join('');
+            document.getElementById('habit-subjects').innerHTML = habitSubjectsList.map(s => `<label class="habit-check"><input type="checkbox" value="${s}"><div class="habit-box">${s}</div></label>`).join('');
 
             setTimeout(() => {
                 document.getElementById('splash-screen').style.opacity = '0';
                 setTimeout(() => document.getElementById('splash-screen').style.display = 'none', 500);
             }, 1000);
         };
-
-        function renderMenu() {
-            const container = document.getElementById('menu-container');
-            let items = [];
-            
-            if(currentPackage === 'skolastik') {
-                items = [
-                    { icon: 'brain', color: '#6366f1', label: 'Pen. Umum', action: 'showComingSoon()' },
-                    { icon: 'lightbulb', color: '#14b8a6', label: 'Peng. Umum', action: 'showComingSoon()' },
-                    { icon: 'calculator', color: 'var(--primary)', label: 'Kuantitatif', action: "openDetail()" }, 
-                    { icon: 'th-large', color: 'var(--text-sec)', label: 'Semua', action: 'openAllSubjects()' }
-                ];
-            } else {
-                items = [
-                    { icon: 'book-open', color: 'var(--primary)', label: 'Lit. Indo', action: 'showComingSoon()' },
-                    { icon: 'language', color: '#6366f1', label: 'Lit. Ing', action: 'showComingSoon()' },
-                    { icon: 'chart-pie', color: '#14b8a6', label: 'Penalaran', action: 'showComingSoon()' },
-                    { icon: 'th-large', color: 'var(--text-sec)', label: 'Semua', action: 'openAllSubjects()' }
-                ];
-            }
-            container.innerHTML = items.map(i => `
-                <div class="menu-item" onclick="${i.action}">
-                    <div class="m-icon" style="color:${i.color}"><i class="fas fa-${i.icon}"></i></div>
-                    <div class="m-text">${i.label}</div>
-                </div>
-            `).join('');
-        }
-
-        // 🔥 FIX TUTOR: BUTTON KUANTITATIF JADI 'PESAN SESI' 🔥
-        function renderTutors() {
-            document.getElementById('tutor-list').innerHTML = tutors.map(t => `
-                <div class="live-card" style="margin-bottom:15px;">
-                    <div class="lc-head">
-                        <div class="lc-title">${t.subject}</div>
-                        <div class="lc-tag">Setiap Hari</div>
-                    </div>
-                    <div class="lc-row"><i class="far fa-clock"></i> 07:00 - 20:45</div>
-                    <div class="lc-row"><i class="fas fa-chalkboard-teacher"></i> ${t.teacher}</div>
-                    <button class="btn-main" onclick="openForm('${t.subject}', '${t.teacher}', '${t.phone}')">
-                        Pesan Sesi
-                    </button>
-                </div>
-            `).join('');
-        }
-
-        function renderHistory() {
-            document.getElementById('history-container').innerHTML = historyData.map(h => `
-                <div class="live-card" style="margin-bottom:15px;">
-                    <div class="lc-head">
-                        <div class="lc-title">${h.title}</div>
-                        <div class="lc-tag" style="background:#dcfce7; color:#16a34a">Selesai</div>
-                    </div>
-                    <div class="lc-row"><i class="far fa-calendar"></i> ${h.date}</div>
-                    <div class="lc-row"><i class="fas fa-user"></i> ${h.teacher}</div>
-                    <a href="${h.link}" target="_blank" style="text-decoration:none;"><button class="btn-outline">Tonton Ulang</button></a>
-                </div>
-            `).join('');
-        }
-
-        function renderChapters() {
-            document.getElementById('chapter-list').innerHTML = chapters.map(c => `
-                <div class="chapter-item">
-                    <div class="ch-icon"><i class="fas fa-${c.icon}"></i></div>
-                    <div class="ch-info">
-                        <h4>${c.title}</h4>
-                        <span>${c.type}</span>
-                    </div>
-                    <i class="fas fa-chevron-right" style="color:var(--text-sec); font-size:0.8rem;"></i>
-                </div>
-            `).join('');
-        }
 
         function switchTab(id) {
             document.querySelectorAll('.page-view').forEach(e => e.classList.remove('active'));
@@ -447,6 +491,9 @@
             } else if (id === 'live') {
                 document.getElementById('head-live').classList.add('active');
                 document.querySelectorAll('.nav-btn')[1].classList.add('active');
+            } else if (id === 'laporan') {
+                document.getElementById('head-laporan').classList.add('active');
+                renderLaporan();
             }
         }
 
@@ -457,125 +504,246 @@
             });
             document.getElementById('view-'+id).style.display = 'block';
             document.getElementById('chip-'+id).classList.add('active');
-
             document.querySelector('.live-tabs').style.display = id==='kelas' ? 'flex' : 'none';
         }
 
-        function switchLiveTab(tab, el) {
-            document.querySelectorAll('.tab').forEach(e => e.classList.remove('active'));
-            el.classList.add('active');
-            document.getElementById('tab-upcoming').style.display = tab==='upcoming' ? 'block' : 'none';
-            document.getElementById('tab-history').style.display = tab==='history' ? 'block' : 'none';
+        // --- NEW DRILL & HABIT LOGIC ---
+        function openDrillMenu() { switchTab('drill-setup'); }
+        function openHabitMenu() { switchTab('habit-setup'); }
+
+        function toggleTimer(prefix) {
+            const chk = document.getElementById(prefix + '-no-timer');
+            const cont = document.getElementById(prefix + '-timer-container');
+            if(chk.checked) cont.style.opacity = '0.5';
+            else cont.style.opacity = '1';
         }
 
-        function openDetail() {
+        function startDrill() { startMultiSubjectQuiz('drill', 'd'); }
+        function startHabit() { startMultiSubjectQuiz('habit', 'h'); }
+
+        function startMultiSubjectQuiz(type, prefix) {
+            const checked = Array.from(document.querySelectorAll(`#${type}-subjects input:checked`)).map(c=>c.value);
+            if(checked.length === 0) { alert("Pilih minimal 1 pelajaran!"); return; }
+            
+            const count = parseInt(document.getElementById(`${prefix}-count`).value);
+            const noTimer = document.getElementById(`${prefix}-no-timer`).checked;
+            const timeVal = parseInt(document.getElementById(`${prefix}-time`).value);
+
+            quizState = {
+                active: true,
+                score: 0,
+                current: 0,
+                type: type === 'drill' ? 'Drill Soal' : 'Habit Builder',
+                subject: checked.join(', '),
+                timerMode: noTimer ? 'unlimited' : 'timed',
+                timeLeft: timeVal * 60,
+                timerId: null
+            };
+
+            // Dummy Pool
+            let pool = [];
+            while(pool.length < count) { pool = pool.concat(qBank); }
+            quizState.questions = pool.slice(0, count).sort(() => 0.5 - Math.random());
+
+            renderQuestion();
+            if(quizState.timerMode === 'timed') startTimer();
+            else document.getElementById('quiz-timer').innerHTML = '<i class="fas fa-infinity"></i>';
+            
+            switchTab('quiz');
+        }
+
+        function startTimer() {
+            if(quizState.timerId) clearInterval(quizState.timerId);
+            quizState.timerId = setInterval(() => {
+                quizState.timeLeft--;
+                const m = Math.floor(quizState.timeLeft / 60).toString().padStart(2,'0');
+                const s = (quizState.timeLeft % 60).toString().padStart(2,'0');
+                document.getElementById('quiz-timer').innerText = `${m}:${s}`;
+                if(quizState.timeLeft <= 0) finishQuiz();
+            }, 1000);
+        }
+
+        function renderQuestion() {
+            const q = quizState.questions[quizState.current];
+            document.getElementById('q-curr').innerText = quizState.current + 1;
+            document.getElementById('q-total').innerText = quizState.questions.length;
+            document.getElementById('q-text').innerText = q.q;
+            
+            const opts = document.getElementById('q-options');
+            opts.innerHTML = q.o.map((opt, i) => `
+                <div class="quiz-opt" onclick="checkAns(this, ${i})">${String.fromCharCode(65+i)}. ${opt}</div>
+            `).join('');
+            
+            document.getElementById('q-explain').style.display = 'none';
+            document.getElementById('btn-next').style.display = 'none';
+        }
+
+        function checkAns(el, idx) {
+            if(document.querySelector('.quiz-opt.correct') || document.querySelector('.quiz-opt.wrong')) return;
+            
+            const q = quizState.questions[quizState.current];
+            if(idx === q.a) {
+                el.classList.add('correct');
+                quizState.score += (100 / quizState.questions.length);
+            } else {
+                el.classList.add('wrong');
+                document.querySelectorAll('.quiz-opt')[q.a].classList.add('correct');
+            }
+            
+            document.getElementById('q-explain').innerHTML = `<b>Pembahasan:</b><br>${q.e}`;
+            document.getElementById('q-explain').style.display = 'block';
+            document.getElementById('btn-next').style.display = 'block';
+        }
+
+        function nextQuestion() {
+            quizState.current++;
+            if(quizState.current >= quizState.questions.length) {
+                finishQuiz();
+            } else {
+                renderQuestion();
+            }
+        }
+
+        function finishQuiz() {
+            if(quizState.timerId) clearInterval(quizState.timerId);
+            const finalScore = Math.round(quizState.score);
+            document.getElementById('final-score').innerText = finalScore;
+            
+            const record = {
+                date: new Date().toLocaleDateString('id-ID', {day:'numeric', month:'short'}),
+                type: quizState.type,
+                subject: quizState.subject,
+                score: finalScore
+            };
+            historyStore.unshift(record);
+            localStorage.setItem('user_history', JSON.stringify(historyStore));
+            
+            switchTab('result');
+        }
+
+        function renderLaporan() {
+            const container = document.getElementById('laporan-list');
+            if(historyStore.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-clipboard-list"></i><p>Belum ada riwayat latihan.</p></div>';
+                return;
+            }
+            container.innerHTML = historyStore.map(h => `
+                <div class="live-card" style="margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
+                    <div style="flex:1">
+                        <div style="font-weight:800; color:var(--text-main); font-size:0.9rem;">${h.subject}</div>
+                        <div style="font-size:0.75rem; color:var(--text-sec)">${h.type} • ${h.date}</div>
+                    </div>
+                    <div style="font-size:1.5rem; font-weight:800; color:${h.score>=70?'var(--correct)':'var(--wrong)'}">${h.score}</div>
+                </div>
+            `).join('');
+        }
+
+        // --- EXISTING FEATURES ---
+        function renderMenu() {
+            const container = document.getElementById('menu-container');
+            let items = currentPackage === 'skolastik' 
+                ? [{i:'brain',c:'#6366f1',l:'Pen.Umum',a:"openDetail('Penalaran Umum')"}, {i:'lightbulb',c:'#14b8a6',l:'Peng.Umum',a:"openDetail('Pengetahuan Umum')"}, {i:'calculator',c:'var(--primary)',l:'Kuantitatif',a:"openDetail('Pengetahuan Kuantitatif')"}, {i:'th-large',c:'var(--text-sec)',l:'Semua',a:'openAllSubjects()'}]
+                : [{i:'book-open',c:'var(--primary)',l:'Lit.Indo',a:"openDetail('Literasi B. Indonesia')"}, {i:'language',c:'#6366f1',l:'Lit.Ing',a:"openDetail('Literasi B. Inggris')"}, {i:'chart-pie',c:'#14b8a6',l:'Penalaran',a:"openDetail('Penalaran Matematika')"}, {i:'th-large',c:'var(--text-sec)',l:'Semua',a:'openAllSubjects()'}]
+            
+            container.innerHTML = items.map(x => `
+                <div class="menu-item" onclick="${x.a}">
+                    <div class="m-icon" style="color:${x.c}"><i class="fas fa-${x.i}"></i></div>
+                    <div class="m-text">${x.l}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderTutors() {
+            document.getElementById('tutor-list').innerHTML = tutors.map(t => `
+                <div class="live-card" style="margin-bottom:15px;">
+                    <div class="lc-head"><div class="lc-title">${t.subject}</div><div class="lc-tag">Setiap Hari</div></div>
+                    <div class="lc-row"><i class="far fa-clock"></i> 07:00 - 20:45</div>
+                    <div class="lc-row"><i class="fas fa-chalkboard-teacher"></i> ${t.teacher}</div>
+                    <button class="btn-main" onclick="openForm('${t.subject}','${t.teacher}','${t.phone}')">Pesan Sesi</button>
+                </div>
+            `).join('');
+        }
+
+        function renderHistory() {
+            const container = document.getElementById('history-container');
+            if(!container) return;
+            container.innerHTML = historyData.map(h => `
+                <div class="live-card" style="margin-bottom:15px;">
+                    <div class="lc-head"><div class="lc-title">${h.title}</div><div class="lc-tag" style="background:#dcfce7; color:#16a34a">Selesai</div></div>
+                    <div class="lc-row"><i class="far fa-calendar"></i> ${h.date}</div>
+                    <div class="lc-row"><i class="fas fa-user"></i> ${h.teacher}</div>
+                    <a href="${h.link}" target="_blank" style="text-decoration:none;"><button class="btn-main">Video Rekaman</button></a>
+                </div>
+            `).join('');
+        }
+
+        let currDetailSubject = '';
+
+        function openDetail(title) {
+            currDetailSubject = title;
             closeModal();
             document.querySelector('.app-header').style.display = 'none';
             document.querySelectorAll('.page-view').forEach(e => e.classList.remove('active'));
             document.getElementById('page-detail').classList.add('active');
+            if(title) document.getElementById('detail-title').innerText = title;
+            
+            // RENDER BAB
+            document.getElementById('chapter-list').innerHTML = `
+                <div class="chapter-item"><div class="ch-icon"><i class="fas fa-play-circle"></i></div><div class="ch-info"><h4>Video Materi</h4><span>Pembelajaran</span></div></div>
+                <div class="chapter-item" onclick="openVideoList('${title}')"><div class="ch-icon"><i class="fas fa-file-pen"></i></div><div class="ch-info"><h4>Video Pembahasan Soal</h4><span>Latihan</span></div><i class="fas fa-chevron-right" style="color:var(--text-sec)"></i></div>
+            `;
         }
 
-        function closeDetail() {
-            document.getElementById('page-detail').classList.remove('active');
-            document.querySelector('.app-header').style.display = 'block';
-            switchTab('home');
-        }
+        // --- VIDEO LIST & PAGINATION ---
+        let currVidPage = 1;
+        const videosPerPage = 5;
 
-        function openForm(sub, teach, phone) {
-            document.querySelector('.app-header').style.display = 'none';
+        function openVideoList(subject) {
             document.querySelectorAll('.page-view').forEach(e => e.classList.remove('active'));
-            document.getElementById('page-form').classList.add('active');
-            document.getElementById('form-subject').value = sub;
-            document.getElementById('form-teacher').innerText = teach;
-            currentTeacherPhone = phone;
+            document.getElementById('page-video-list').classList.add('active');
+            document.getElementById('video-subject-title').innerText = subject;
+            currVidPage = 1;
+            renderVideoList(subject);
         }
 
-        function closeForm() {
-            document.getElementById('page-form').classList.remove('active');
-            document.querySelector('.app-header').style.display = 'block';
-            switchTab('live');
+        function renderVideoList(subject) {
+            const list = videoDB[subject] || videoDB['default'];
+            const start = (currVidPage - 1) * videosPerPage;
+            const end = start + videosPerPage;
+            const paginated = list.slice(start, end);
+            const totalPages = Math.ceil(list.length / videosPerPage);
+
+            const container = document.getElementById('video-container');
+            container.innerHTML = paginated.map(v => `
+                <a href="${v.u}" target="_blank" class="video-card">
+                    <img src="${v.i || 'https://via.placeholder.com/480x270?text=No+Thumbnail'}" class="video-thumb">
+                    <div class="video-info"><div class="video-title">${v.t}</div><div class="video-meta"><i class="fab fa-youtube" style="color:#ff0000"></i> ${v.c}</div></div>
+                </a>
+            `).join('');
+
+            const pagContainer = document.getElementById('pagination-controls');
+            if(totalPages > 1) {
+                let btns = '';
+                for(let i=1; i<=totalPages; i++) {
+                    btns += `<div class="page-btn ${i===currVidPage?'active':''}" onclick="changeVideoPage(${i}, '${subject}')">${i}</div>`;
+                }
+                pagContainer.innerHTML = btns;
+            } else { pagContainer.innerHTML = ''; }
         }
 
-        // 🔥 FIX TEMPLATE WA KEREN 🔥
-        function sendWA() {
-            const msg = document.getElementById('form-msg').value;
-            const sub = document.getElementById('form-subject').value;
-            const teacher = document.getElementById('form-teacher').innerText;
-
-            if(!msg) { alert("Tulis pertanyaan dulu ya!"); return; }
-
-            const text = `Halo Kak ${teacher}! 👋\n\nSaya ingin konsultasi mengenai materi *${sub}* via Daily Study.\n\n📝 *Pertanyaan:*\n${msg}\n\nMohon bantuannya ya Kak, terima kasih! 🚀`;
-
-            window.open(`https://wa.me/${currentTeacherPhone}?text=${encodeURIComponent(text)}`, '_blank');
-        }
-
-        function toggleTheme() {
-            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            const newTheme = isDark ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            document.querySelector('#theme-btn i').className = isDark ? 'fas fa-moon' : 'fas fa-sun';
-        }
-
-        function openClassModal() {
-            const m = document.getElementById('modal-overlay');
-            m.classList.add('active');
-            document.getElementById('modal-content').innerHTML = `
-                <h3 style="text-align:center; margin-bottom:20px; color:var(--text-main);">Pilih Paket</h3>
-                <div class="pkg-option ${currentPackage==='literasi'?'active':''}" onclick="setPkg('literasi')">Tes Literasi</div>
-                <div class="pkg-option ${currentPackage==='skolastik'?'active':''}" onclick="setPkg('skolastik')">Tes Potensi Skolastik</div>
-            `;
-        }
-
-        function openAllSubjects() {
-            const m = document.getElementById('modal-overlay');
-            m.classList.add('active');
-            document.getElementById('modal-content').innerHTML = `
-                <h3 style="text-align:center; margin-bottom:20px; color:var(--text-main);">Semua Pelajaran</h3>
-                <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:15px;">
-                    ${getAllIcons()}
-                </div>
-                <button class="btn-main" onclick="closeModal()" style="margin-top:20px; background:var(--bg-app); color:var(--text-main); border:1px solid var(--border)">Tutup</button>
-            `;
-        }
-
-        function showComingSoon() {
-            const m = document.getElementById('modal-overlay');
-            m.classList.add('active');
-            document.getElementById('modal-content').innerHTML = `
-                <div style="text-align:center">
-                    <i class="fas fa-rocket" style="font-size:3rem; color:var(--primary); margin-bottom:15px;"></i>
-                    <h3 style="color:var(--text-main); margin-bottom:10px;">Coming Soon!</h3>
-                    <p style="color:var(--text-sec); font-size:0.9rem; margin-bottom:20px;">Fitur ini sedang dalam tahap pengembangan.</p>
-                    <button class="btn-main" onclick="closeModal()">Oke, Mengerti</button>
-                </div>
-            `;
-        }
-
-        function getAllIcons() {
-            return [
-                {c:'var(--primary)', i:'book-open', l:'Indo', a:'showComingSoon()'}, 
-                {c:'#6366f1', i:'language', l:'Inggris', a:'showComingSoon()'},
-                {c:'#14b8a6', i:'chart-pie', l:'Penalaran', a:'showComingSoon()'}, 
-                {c:'#6366f1', i:'brain', l:'Pen.Umum', a:'showComingSoon()'},
-                {c:'#14b8a6', i:'lightbulb', l:'Peng.Umum', a:'showComingSoon()'}, 
-                {c:'var(--primary)', i:'book', l:'PBM', a:'showComingSoon()'},
-                {c:'var(--text-sec)', i:'calculator', l:'Kuantitatif', a:'openDetail()'} 
-            ].map(x => `<div style="text-align:center; cursor:pointer;" onclick="${x.a}">
-                <div style="width:50px; height:50px; background:var(--bg-app); border-radius:16px; display:flex; justify-content:center; align-items:center; margin:0 auto 5px; color:${x.c}; font-size:1.3rem; border:1px solid var(--border);">
-                    <i class="fas fa-${x.i}"></i>
-                </div>
-                <div style="font-size:0.7rem; font-weight:600; color:var(--text-sec);">${x.l}</div>
-            </div>`).join('');
-        }
-
-        function setPkg(pkg) {
-            currentPackage = pkg;
-            localStorage.setItem('daily_study_package', pkg);
-            updateHeaderPkg(pkg);
-            renderMenu();
-            closeModal();
-        }
+        function changeVideoPage(page, subject) { currVidPage = page; renderVideoList(subject); }
+        function backToDetail() { openDetail(currDetailSubject); }
+        function closeDetail() { document.getElementById('page-detail').classList.remove('active'); document.querySelector('.app-header').style.display = 'block'; switchTab('home'); }
+        
+        function openForm(sub, teach, phone) { document.querySelector('.app-header').style.display = 'none'; document.querySelectorAll('.page-view').forEach(e => e.classList.remove('active')); document.getElementById('page-form').classList.add('active'); document.getElementById('form-subject').value = sub; document.getElementById('form-teacher').innerText = teach; currentTeacherPhone = phone; }
+        function closeForm() { document.getElementById('page-form').classList.remove('active'); document.querySelector('.app-header').style.display = 'block'; switchTab('live'); }
+        function sendWA() { const msg = document.getElementById('form-msg').value; const sub = document.getElementById('form-subject').value; const teacher = document.getElementById('form-teacher').innerText; if(!msg) { alert("Tulis pertanyaan dulu ya!"); return; } window.open(`https://wa.me/${currentTeacherPhone}?text=${encodeURIComponent(`Halo Kak ${teacher}! 👋\nSaya ingin konsultasi materi *${sub}*.\n\n${msg}`)}`, '_blank'); }
+        function toggleTheme() { const isDark = document.documentElement.getAttribute('data-theme') === 'dark'; const newTheme = isDark ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', newTheme); localStorage.setItem('theme', newTheme); document.querySelector('#theme-btn i').className = isDark ? 'fas fa-moon' : 'fas fa-sun'; }
+        function openClassModal() { document.getElementById('modal-overlay').classList.add('active'); document.getElementById('modal-content').innerHTML = `<h3 style="text-align:center; margin-bottom:20px; color:var(--text-main);">Pilih Paket</h3><div class="pkg-option ${currentPackage==='literasi'?'active':''}" onclick="setPkg('literasi')">Tes Literasi</div><div class="pkg-option ${currentPackage==='skolastik'?'active':''}" onclick="setPkg('skolastik')">Tes Potensi Skolastik</div>`; }
+        function openAllSubjects() { document.getElementById('modal-overlay').classList.add('active'); document.getElementById('modal-content').innerHTML = `<h3 style="text-align:center; margin-bottom:20px; color:var(--text-main);">Semua Pelajaran</h3><div style="display:grid; grid-template-columns:repeat(4,1fr); gap:15px;">${[{c:'var(--primary)',i:'book-open',l:'Indo',a:"openDetail('Literasi B. Indonesia')"},{c:'#6366f1',i:'language',l:'Inggris',a:"openDetail('Literasi B. Inggris')"},{c:'#14b8a6',i:'chart-pie',l:'Penalaran',a:"openDetail('Penalaran Matematika')"},{c:'#6366f1',i:'brain',l:'Pen.Umum',a:"openDetail('Penalaran Umum')"},{c:'#14b8a6',i:'lightbulb',l:'Peng.Umum',a:"openDetail('Pengetahuan Umum')"},{c:'var(--primary)',i:'book',l:'PBM',a:"openDetail('PBM')"},{c:'var(--text-sec)',i:'calculator',l:'Kuantitatif',a:"openDetail('Pengetahuan Kuantitatif')"}].map(x=>`<div style="text-align:center; cursor:pointer;" onclick="${x.a}"><div class="m-icon" style="margin:0 auto 5px; color:${x.c}"><i class="fas fa-${x.i}"></i></div><div style="font-size:0.7rem; font-weight:600; color:var(--text-sec)">${x.l}</div></div>`).join('')}</div><button class="btn-main" onclick="closeModal()" style="margin-top:20px; background:var(--bg-app); color:var(--text-main); border:1px solid var(--border)">Tutup</button>`; }
+        function showComingSoon() { alert("Fitur sedang dikembangkan!"); }
+        function switchLiveTab(tab, el) { document.querySelectorAll('.tab').forEach(e => e.classList.remove('active')); el.classList.add('active'); document.getElementById('tab-upcoming').style.display = tab==='upcoming'?'block':'none'; document.getElementById('tab-history').style.display = tab==='history'?'block':'none'; }
+        function setPkg(pkg) { currentPackage = pkg; localStorage.setItem('daily_study_package', pkg); updateHeaderPkg(pkg); renderMenu(); closeModal(); }
         function updateHeaderPkg(pkg) { document.getElementById('pkg-text').innerText = pkg === 'literasi' ? 'UTBK - Literasi' : 'UTBK - Potensi'; }
         function closeModal() { document.getElementById('modal-overlay').classList.remove('active'); }
     </script>
